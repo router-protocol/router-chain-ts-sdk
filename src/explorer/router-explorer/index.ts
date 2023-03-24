@@ -1,6 +1,7 @@
 import { getNetworkType, Network } from '../../networks';
 import {
   filterApplicationInboundQuery,
+  filterApplicationOutboundDestChainQuery,
   filterApplicationOutboundQuery,
   latestApplicationsInboundsQuery,
   latestApplicationsOutboundsQuery,
@@ -10,8 +11,13 @@ import {
   latestOutboundsQuery,
   latestTransactionsOfAddressQuery,
   latestTransactionsQuery,
+  searchSpecificCrossTalkChainIdQuery,
+  searchSpecificCrossTalkDestChainIdQuery,
   searchSpecificCrossTalkQuery,
+  searchSpecificCrossTalkSrcChainIdQuery,
   searchSpecificInboundQuery,
+  searchSpecificInboundSrcChainIdQuery,
+  searchSpecificOutboundDestChainIdQuery,
   searchSpecificOutboundQuery,
   specificBlockQuery,
   specificCrossTalkQuery,
@@ -62,14 +68,20 @@ export class RouterExplorer {
 
   /**
    * Fetches latest Blocks
+   * @param {string} timeRange Time Range
    * @param {string} limit Page Limit
    * @param {string} offset Page Number
    * @return {Blocks}
    * @throws {Error}
    */
-  public async getLatestBlocks(limit: Number = 10, offset: Number = 1) {
+  public async getLatestBlocks(
+    timeRange: number[] = [],
+    limit: Number = 10,
+    offset: Number = 1
+  ) {
     try {
       const data = await gqlFetcher(this.chainEnvironment, latestBlockQuery, {
+        timeRange,
         limit: limit,
         offset: offset,
       });
@@ -81,7 +93,7 @@ export class RouterExplorer {
 
   /**
    * Fetches specific Block
-   * @param {string} height BlocjHeight
+   * @param {string} height BlockHeight
    * @return {Block}
    * @throws {Error}
    */
@@ -97,12 +109,17 @@ export class RouterExplorer {
   }
   /**
    * Fetches latest Transactions
+   * @param {string} timeRange Time Range
    * @param {string} limit Page Limit
    * @param {string} offset Page Number
    * @return {Transactions}
    * @throws {Error}
    */
-  public async getLatestTransactions(limit: Number = 10, offset: Number = 1) {
+  public async getLatestTransactions(
+    timeRange: number[] = [],
+    limit: Number = 10,
+    offset: Number = 1
+  ) {
     try {
       const data = await gqlFetcher(
         this.chainEnvironment,
@@ -110,6 +127,7 @@ export class RouterExplorer {
           ? latestTransactionsOfAddressQuery
           : latestTransactionsQuery,
         {
+          timeRange,
           limit: limit,
           offset: offset,
         }
@@ -169,12 +187,19 @@ export class RouterExplorer {
   }
   /**
    * Fetches latest Inbounds
+   * @param {string} timeRange Time Range
    * @param {string} limit Page Limit
    * @param {string} offset Page Number
    * @return {Inbounds}
    * @throws {Error}
    */
-  public async getLatestInbounds(limit: Number = 10, offset: Number = 1) {
+  public async getLatestInbounds(
+    timeRange: number[] = [],
+    limit: Number = 10,
+    offset: Number = 1,
+    blockHeight: Number = 0,
+    order: string = 'desc'
+  ) {
     try {
       const data = await gqlFetcher(
         this.chainEnvironment,
@@ -183,8 +208,11 @@ export class RouterExplorer {
           : latestInboundsQuery,
         {
           address: this.applicationAddress,
+          timeRange,
           limit: limit,
           offset: offset,
+          blockHeight: blockHeight,
+          order: order,
         }
       );
       return data;
@@ -195,6 +223,8 @@ export class RouterExplorer {
   /**
    * Fetches filtered outbound by search term
    * @param {string} searchTerm Could be source sender address or source transaction hash or router contract address
+   * @param {string} sourceChainIds Filter by source chain id
+   * @param {string} timeRange Time Range
    * @param {string} limit Page Limit
    * @param {string} offset Page Number
    * @return {Inbounds}
@@ -202,15 +232,21 @@ export class RouterExplorer {
    */
   public async getInboundBySearch(
     searchTerm: String,
+    sourceChainIds: string[] = [],
+    timeRange: number[] = [],
     limit: Number = 10,
     offset: Number = 1
   ) {
     try {
       const data = await gqlFetcher(
         this.chainEnvironment,
-        searchSpecificInboundQuery,
+        sourceChainIds.length === 0
+          ? searchSpecificInboundQuery
+          : searchSpecificInboundSrcChainIdQuery,
         {
           searchTerm: searchTerm,
+          sourceChainIds: sourceChainIds,
+          timeRange,
           limit: limit,
           offset: offset,
         }
@@ -275,13 +311,18 @@ export class RouterExplorer {
 
   /**
    * Fetches latest Outbounds
+   * @param {string} timeRange Time Range
    * @param {string} limit Page Limit
    * @param {string} offset Page Number
    * @return {Outbounds}
    * @throws {Error}
    */
 
-  public async getLatestOutbounds(limit: Number = 10, offset: Number = 1) {
+  public async getLatestOutbounds(
+    timeRange: number[] = [],
+    limit: Number = 10,
+    offset: Number = 1
+  ) {
     try {
       const data = await gqlFetcher(
         this.chainEnvironment,
@@ -290,6 +331,7 @@ export class RouterExplorer {
           : latestOutboundsQuery,
         {
           address: this.applicationAddress,
+          timeRange,
           limit: limit,
           offset: offset,
         }
@@ -301,29 +343,31 @@ export class RouterExplorer {
   }
   /**
    * Fetches specific Outbounds
-   * @param {string} destinationChainType
+   * @param {string} timeRange Time Range
    * @param {string} destinationChainId
-   * @param {string} sourceAddress
+   * @param {string} searchTerm Middleware Contract Address
    * @param {string} limit Page Limit
    * @param {string} offset Page Number
    * @return {Outbounds}
    * @throws {Error}
    */
   public async getOutboundBySearch(
-    destinationChainType: String,
-    destinationChainId: String,
-    sourceAddress: String,
+    searchTerm: String,
+    destinationChainIds: string[] = [],
+    timeRange: number[] = [],
     limit: Number = 10,
     offset: Number = 1
   ) {
     try {
       const data = await gqlFetcher(
         this.chainEnvironment,
-        searchSpecificOutboundQuery,
+        destinationChainIds.length === 0
+          ? searchSpecificOutboundQuery
+          : searchSpecificOutboundDestChainIdQuery,
         {
-          destinationChainType: destinationChainType,
-          destinationChainId: destinationChainId,
-          sourceAddress: sourceAddress,
+          destinationChainIds: destinationChainIds,
+          timeRange,
+          searchTerm: searchTerm,
           limit: limit,
           offset: offset,
         }
@@ -336,27 +380,25 @@ export class RouterExplorer {
   //For Application specific contracts
   /**
    * Fetches application specific Outbounds
-   * @param {string} destinationChainType
    * @param {string} destinationChainId
-   * @param {string} sourceAddress
    * @param {string} limit Page Limit
    * @param {string} offset Page Number
    * @return {Outbounds}
    * @throws {Error}
    */
   public async getFilteredOutbounds(
-    destinationChainType: String,
-    destinationChainId: String,
+    destinationChainId: string[] = [],
     limit: Number = 10,
     offset: Number = 1
   ) {
     try {
       const data = await gqlFetcher(
         this.chainEnvironment,
-        filterApplicationOutboundQuery,
+        destinationChainId.length === 0
+          ? filterApplicationOutboundQuery
+          : filterApplicationOutboundDestChainQuery,
         {
           address: this.applicationAddress,
-          destinationChainType: destinationChainType,
           destinationChainId: destinationChainId,
           limit: limit,
           offset: offset,
@@ -390,19 +432,25 @@ export class RouterExplorer {
 
   /**
    * Fetches latest CrossTalks
+   * @param {string} timeRange Time Range
    * @param {string} limit Page Limit
    * @param {string} offset Page Number
    * @return {CrossTalks}
    * @throws {Error}
    */
 
-  public async getLatestCrossTalks(limit: Number = 10, offset: Number = 1) {
+  public async getLatestCrossTalks(
+    timeRange: number[] = [],
+    limit: Number = 10,
+    offset: Number = 1
+  ) {
     try {
       const data = await gqlFetcher(
         this.chainEnvironment,
         latestCrossTalksQuery,
         {
           address: this.applicationAddress,
+          timeRange,
           limit: limit,
           offset: offset,
         }
@@ -414,6 +462,7 @@ export class RouterExplorer {
   }
   /**
    * Fetches specific CrossTalks
+   * @param {string} timeRange Time Range
    * @param {string} searchTerm Source Sender or Source Transaction Hash
    * @param {string} limit Page Limit
    * @param {string} offset Page Number
@@ -422,15 +471,29 @@ export class RouterExplorer {
    */
   public async getCrossTalkBySearch(
     searchTerm: String,
+    srcChainIds: string[] = [],
+    dstChainIds: string[] = [],
+    timeRange: number[] = [],
     limit: Number = 10,
     offset: Number = 1
   ) {
     try {
       const data = await gqlFetcher(
         this.chainEnvironment,
-        searchSpecificCrossTalkQuery,
+        srcChainIds.length === 0 && dstChainIds.length === 0
+          ? searchSpecificCrossTalkQuery
+          : srcChainIds.length > 0 && dstChainIds.length > 0
+          ? searchSpecificCrossTalkChainIdQuery
+          : srcChainIds.length > 0
+          ? searchSpecificCrossTalkSrcChainIdQuery
+          : dstChainIds.length > 0
+          ? searchSpecificCrossTalkDestChainIdQuery
+          : searchSpecificCrossTalkQuery,
         {
+          sourceChainIds: srcChainIds,
+          destinationChainIds: dstChainIds,
           searchTerm: searchTerm,
+          timeRange,
           limit: limit,
           offset: offset,
         }
