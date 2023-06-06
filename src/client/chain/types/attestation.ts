@@ -16,6 +16,7 @@ export function getValsetUpdatedClaimHash(
     }
   );
   claimHash.setChainid(claimHashObject.chainid);
+  claimHash.setContract(claimHashObject.contract);
   claimHash.setEventnonce(claimHashObject.eventnonce);
   claimHash.setValsetnonce(claimHashObject.valsetnonce);
   claimHash.setBlockheight(claimHashObject.blockheight);
