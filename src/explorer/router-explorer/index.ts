@@ -1,4 +1,9 @@
-import { getNetworkType, Network } from '../../networks';
+import {
+  getEndpointsForNetwork,
+  getNetworkType,
+  Network,
+} from '../../networks';
+import { fromBase64ToString } from '../../utils';
 import {
   latestBlockQuery,
   latestTransactionsOfAddressQuery,
@@ -12,17 +17,31 @@ import {
   specificCrosschainQuery,
   specificTransactionQuery,
   inboundOutboundQuery,
+  latestFundDepositQuery,
+  searchSpecificFundDepositQuery,
+  searchSpecificFundDepositChainIdQuery,
+  searchSpecificFundDepositSrcChainIdQuery,
+  searchSpecificFundDepositDestChainIdQuery,
+  specificFundDepositQuery,
+  latestFundPaidQuery,
+  searchSpecificFundPaidQuery,
+  searchSpecificFundPaidSrcChainIdQuery,
+  specificFundPaidQuery,
 } from '../queries';
 import {
   BlockType,
   CrosschainType,
+  FundDepositType,
+  FundPaidType,
   InboundOutboundMapType,
   PaginatedBlock,
   PaginatedCrosschain,
+  PaginatedFundDeposit,
+  PaginatedFundPaid,
   PaginatedTransaction,
   TransactionType,
 } from '../types';
-import { gqlFetcher } from '../utils';
+import { gqlFetcher, restFetcher } from '../utils';
 
 /**
  * @group Router Scan Utility
@@ -272,6 +291,190 @@ export class RouterExplorer {
            }
          }
          /**
+          * Fetches latest Fund Deposits
+          * @param {string} timeRange Time Range
+          * @param {string} limit Page Limit
+          * @param {string} offset Page Number
+          * @return {PaginatedFundDeposit}
+          * @throws {Error}
+          */
+
+         public async getLatestFundDeposits(
+           timeRange: number[] = [],
+           limit: Number = 10,
+           offset: Number = 1
+         ): Promise<{ paginatedFundDeposit: PaginatedFundDeposit }> {
+           try {
+             const data = await gqlFetcher(
+               this.chainEnvironment,
+               latestFundDepositQuery,
+               {
+                 address: this.applicationAddress,
+                 timeRange,
+                 limit: limit,
+                 offset: offset,
+               }
+             );
+             return data;
+           } catch (e) {
+             throw new Error(`Error | getLatestFundDeposits | ${e}`);
+           }
+         }
+         /**
+          * Fetches specific Fund Deposits
+          * @param {string} timeRange Time Range
+          * @param {string} searchTerm srcTxHash or contract or srcToken or recipient or depositor
+          * @param {string} limit Page Limit
+          * @param {string} offset Page Number
+          * @return {PaginatedFundDeposit}
+          * @throws {Error}
+          */
+         public async getFundDepositBySearch(
+           searchTerm: String,
+           srcChainIds: string[] = [],
+           dstChainIds: string[] = [],
+           timeRange: number[] = [],
+           limit: Number = 10,
+           offset: Number = 1
+         ): Promise<{ paginatedFundDeposit: PaginatedFundDeposit }> {
+           try {
+             const data = await gqlFetcher(
+               this.chainEnvironment,
+               srcChainIds.length === 0 && dstChainIds.length === 0
+                 ? searchSpecificFundDepositQuery
+                 : srcChainIds.length > 0 && dstChainIds.length > 0
+                 ? searchSpecificFundDepositChainIdQuery
+                 : srcChainIds.length > 0
+                 ? searchSpecificFundDepositSrcChainIdQuery
+                 : dstChainIds.length > 0
+                 ? searchSpecificFundDepositDestChainIdQuery
+                 : searchSpecificFundDepositQuery,
+               {
+                 sourceChainIds: srcChainIds,
+                 destinationChainIds: dstChainIds,
+                 searchTerm: searchTerm,
+                 timeRange,
+                 limit: limit,
+                 offset: offset,
+               }
+             );
+             return data;
+           } catch (e) {
+             throw new Error(`Error | getCrosschainBySearch | ${e}`);
+           }
+         }
+         /**
+          * Fetches specific Fund Deposit
+          * @param {string} id
+          * @return {FundDepositType}
+          * @throws {Error}
+          */
+         public async getFundDepositById(
+           id: String
+         ): Promise<{ fundDeposit: FundDepositType }> {
+           try {
+             const data = await gqlFetcher(
+               this.chainEnvironment,
+               specificFundDepositQuery,
+               {
+                 id,
+               }
+             );
+             return data;
+           } catch (e) {
+             throw new Error(`Error | getFundDepositById | ${e}`);
+           }
+         }
+         /**
+          * Fetches latest Fund Paid
+          * @param {string} timeRange Time Range
+          * @param {string} limit Page Limit
+          * @param {string} offset Page Number
+          * @return {PaginatedFundPaid}
+          * @throws {Error}
+          */
+
+         public async getLatestFundPaids(
+           timeRange: number[] = [],
+           limit: Number = 10,
+           offset: Number = 1
+         ): Promise<{ paginatedFundPaid: PaginatedFundPaid }> {
+           try {
+             const data = await gqlFetcher(
+               this.chainEnvironment,
+               latestFundPaidQuery,
+               {
+                 address: this.applicationAddress,
+                 timeRange,
+                 limit: limit,
+                 offset: offset,
+               }
+             );
+             return data;
+           } catch (e) {
+             throw new Error(`Error | getLatestFundPaids | ${e}`);
+           }
+         }
+         /**
+          * Fetches specific Fund Paids
+          * @param {string} timeRange Time Range
+          * @param {string} searchTerm srcTxHash or contract or srcToken or recipient or depositor
+          * @param {string} limit Page Limit
+          * @param {string} offset Page Number
+          * @return {PaginatedFundPaid}
+          * @throws {Error}
+          */
+         public async getFundPaidBySearch(
+           searchTerm: String,
+           srcChainIds: string[] = [],
+           timeRange: number[] = [],
+           limit: Number = 10,
+           offset: Number = 1
+         ): Promise<{ paginatedFundPaid: PaginatedFundPaid }> {
+           try {
+             const data = await gqlFetcher(
+               this.chainEnvironment,
+               srcChainIds.length === 0
+                 ? searchSpecificFundPaidQuery
+                 : srcChainIds.length > 0
+                 ? searchSpecificFundPaidSrcChainIdQuery
+                 : searchSpecificFundPaidQuery,
+               {
+                 sourceChainIds: srcChainIds,
+                 searchTerm: searchTerm,
+                 timeRange,
+                 limit: limit,
+                 offset: offset,
+               }
+             );
+             return data;
+           } catch (e) {
+             throw new Error(`Error | getFundPaidBySearch | ${e}`);
+           }
+         }
+         /**
+          * Fetches specific Fund Paid
+          * @param {string} id
+          * @return {FundDepositType}
+          * @throws {Error}
+          */
+         public async getFundPaidById(
+           id: String
+         ): Promise<{ fundPaid: FundPaidType }> {
+           try {
+             const data = await gqlFetcher(
+               this.chainEnvironment,
+               specificFundPaidQuery,
+               {
+                 id,
+               }
+             );
+             return data;
+           } catch (e) {
+             throw new Error(`Error | getFundPaidById | ${e}`);
+           }
+         }
+         /**
           * Fetches specific Transaction
           * @param {string} middlewareContract
           * @param {string} inboundId
@@ -294,6 +497,56 @@ export class RouterExplorer {
              return data;
            } catch (e) {
              throw new Error(`Error | getOutboundsForInbound | ${e}`);
+           }
+         }
+
+         /**
+          * Fetches specific Transaction
+          * @param {string} sourceChainId
+          * @param {string} nonce
+          * @return {InboundOutboundMapType[]}
+          * @throws {Error}
+          */
+         public async getExecutedBlockEventsForCrosschain(
+           sourceChainId: string,
+           nonce: string
+         ): Promise<any> {
+           try {
+             //80001-95
+             const crosschainId = sourceChainId + '-' + nonce;
+             const crosschainData = await this.getCrosschainByAttestationId(
+               crosschainId
+             );
+             //const contractAddress = crosschainData.crosschain.requestPacket.handler;
+             const executionBlock = crosschainData.crosschain.eventHistory.find(
+               historyEventHistory =>
+                 historyEventHistory.name ===
+                 'routerprotocol.routerchain.crosschain.EventCrosschainExecuted'
+             )?.height;
+             if (!executionBlock) {
+               throw new Error(
+                 `Error | getExecutedBlockEventsForCrosschain | EventCrosschainExecuted is not present the crosschain record.`
+               );
+             }
+             const tmRpc = getEndpointsForNetwork(this.chainEnvironment)
+               .tmEndpoint;
+             const blockData = await restFetcher(
+               `${tmRpc}/block_results?height=${executionBlock}`
+             );
+             return blockData.result.end_block_events.map((eventData: any) => {
+               eventData.attributes = eventData.attributes.map(
+                 (attribute: any) => {
+                   attribute.key = fromBase64ToString(attribute.key);
+                   attribute.value = fromBase64ToString(attribute.value);
+                   return attribute;
+                 }
+               );
+               return eventData;
+             });
+           } catch (e) {
+             throw new Error(
+               `Error | getExecutedBlockEventsForCrosschain | ${e}`
+             );
            }
          }
        }
