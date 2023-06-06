@@ -13,6 +13,7 @@ export function getCrosschainClaimHash(crosschainRequest: CrosschainRequest.AsOb
     const claimHash = new CrosschainRequestClaimHash()
 
     claimHash.setSrcChainId(crosschainRequest.srcChainId)
+    claimHash.setContract(crosschainRequest.contract)
     claimHash.setRequestIdentifier(crosschainRequest.requestIdentifier)
     claimHash.setBlockHeight(crosschainRequest.blockHeight)
     claimHash.setSourceTxHash(crosschainRequest.sourceTxHash)
@@ -39,6 +40,7 @@ export function getCrosschainAckClaimHash(crosschainAckRequest: CrosschainAckReq
     const claimHash = new CrosschainAckRequestClaimHash()
 
     claimHash.setAckSrcChainId(crosschainAckRequest.ackSrcChainId)
+    claimHash.setContract(crosschainAckRequest.contract)
     claimHash.setAckRequestIdentifier(crosschainAckRequest.ackRequestIdentifier)
     claimHash.setBlockheight(crosschainAckRequest.blockheight)
     claimHash.setDesttxhash(crosschainAckRequest.desttxhash)
@@ -59,6 +61,7 @@ export function getCrosschainAckReceiptClaimHash(crosschainAckReceipt: Crosschai
     const claimHash = new CrosschainAckReceiptClaimHash()
 
     claimHash.setAckreceiptsrcchainid(crosschainAckReceipt.acksrcchainid)
+    claimHash.setContract(crosschainAckReceipt.contract)
     claimHash.setAckReceiptIdentifier(crosschainAckReceipt.ackrequestidentifier)
     claimHash.setAckReceiptBlockheight(crosschainAckReceipt.ackReceiptBlockheight)
     claimHash.setAckReceiptTxhash(crosschainAckReceipt.ackReceiptTxhash)
