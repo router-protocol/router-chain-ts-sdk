@@ -7,20 +7,6 @@ export const latestBlockQuery = `query getLatestBlocks($limit: Int!, $timeRange:
       proposer
       txn_count
       timestamp
-      transactions{
-         _id
-        height
-        sender
-        status
-        receiver
-        timestamp
-        gasWanted
-        gasUsed
-        fee
-        event_logs
-        success
-        routePrice
-      }
     }
   }
 }

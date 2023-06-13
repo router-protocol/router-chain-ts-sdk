@@ -533,11 +533,22 @@ export class RouterExplorer {
              const blockData = await restFetcher(
                `${tmRpc}/block_results?height=${executionBlock}`
              );
+             console.log(
+               'link =>',
+               `${tmRpc}/block_results?height=${executionBlock}`
+             );
              return blockData.result.end_block_events.map((eventData: any) => {
                eventData.attributes = eventData.attributes.map(
                  (attribute: any) => {
-                   attribute.key = fromBase64ToString(attribute.key);
-                   attribute.value = fromBase64ToString(attribute.value);
+                   try {
+                     attribute.key = fromBase64ToString(attribute.key);
+                     attribute.value = fromBase64ToString(attribute.value);
+                   } catch (e) {
+                     console.log(
+                       'problematic attribute =>',
+                       JSON.stringify(attribute)
+                     );
+                   }
                    return attribute;
                  }
                );

@@ -32,7 +32,6 @@ export interface BlockType {
   total_gas: string;
   block_reward: string;
   processed: number;
-  transactions: TransactionType[];
 }
 
 export interface PaginatedBlock {
