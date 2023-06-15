@@ -1,9 +1,17 @@
 import { RouterExplorer } from '../src';
 
 describe('Queries Test', () => {
-  const explorer = new RouterExplorer('local', '');
+  const explorer = new RouterExplorer('testnet', '');
   it('Fetch Crosschain by search - ', async () => {
     const Crosschains = await explorer.getLatestCrosschains();
+    console.log('Crosschain =>', JSON.stringify(Crosschains));
+    expect(Crosschains).toBeDefined();
+  });
+  it('Fetch Crosschain by search - ', async () => {
+    const Crosschains = await explorer.getExecutedBlockEventsForCrosschain(
+      '80001',
+      '95'
+    );
     console.log('Crosschain =>', JSON.stringify(Crosschains));
     expect(Crosschains).toBeDefined();
   });

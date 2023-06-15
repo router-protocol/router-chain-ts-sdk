@@ -25,3 +25,6 @@ export const gqlFetcher = async (
     console.error(`Error while fetching the data - ${e}`);
   }
 };
+
+export const restFetcher = async (url: string) =>
+  await (await fetch(url)).json();
