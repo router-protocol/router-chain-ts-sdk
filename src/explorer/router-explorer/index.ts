@@ -512,12 +512,10 @@ export class RouterExplorer {
            nonce: string
          ): Promise<any> {
            try {
-             //80001-95
              const crosschainId = sourceChainId + '-' + nonce;
              const crosschainData = await this.getCrosschainByAttestationId(
                crosschainId
              );
-             //const contractAddress = crosschainData.crosschain.requestPacket.handler;
              const executionBlock = crosschainData.crosschain.eventHistory.find(
                historyEventHistory =>
                  historyEventHistory.name ===
@@ -554,6 +552,89 @@ export class RouterExplorer {
                );
                return eventData;
              });
+           } catch (e) {
+             throw new Error(
+               `Error | getExecutedBlockEventsForCrosschain | ${e}`
+             );
+           }
+         }
+         public async getBlockEvents(blockNumber: string): Promise<any> {
+           try {
+             const tmRpc = getEndpointsForNetwork(this.chainEnvironment)
+               .tmEndpoint;
+             const blockData = await restFetcher(
+               `${tmRpc}/block_results?height=${blockNumber}`
+             );
+             console.log(
+               'link =>',
+               `${tmRpc}/block_results?height=${blockNumber}`,
+               blockData
+             );
+             const decoded_end_block_events = blockData.result.end_block_events.map(
+               (eventData: any) => {
+                 eventData.attributes = eventData.attributes.map(
+                   (attribute: any) => {
+                     try {
+                       attribute.key = fromBase64ToString(attribute.key);
+                       attribute.value = fromBase64ToString(attribute.value);
+                     } catch (e) {
+                       console.log(
+                         'problematic attribute =>',
+                         JSON.stringify(attribute)
+                       );
+                     }
+                     return attribute;
+                   }
+                 );
+                 return eventData;
+               }
+             );
+             const decoded_begin_block_events = blockData.result.begin_block_events.map(
+               (eventData: any) => {
+                 eventData.attributes = eventData.attributes.map(
+                   (attribute: any) => {
+                     try {
+                       attribute.key = fromBase64ToString(attribute.key);
+                       attribute.value = fromBase64ToString(attribute.value);
+                     } catch (e) {
+                       console.log(
+                         'problematic attribute =>',
+                         JSON.stringify(attribute)
+                       );
+                     }
+                     return attribute;
+                   }
+                 );
+                 return eventData;
+               }
+             );
+             const decoded_txs_results_events = blockData.result.txs_results.map(
+               (txn: any) => {
+                 return txn.events.map((eventData: any) => {
+                   eventData.attributes = eventData.attributes.map(
+                     (attribute: any) => {
+                       try {
+                         attribute.key = fromBase64ToString(attribute.key);
+                         attribute.value = fromBase64ToString(attribute.value);
+                       } catch (e) {
+                         console.log(
+                           'problematic attribute =>',
+                           JSON.stringify(attribute)
+                         );
+                       }
+                       return attribute;
+                     }
+                   );
+                   return eventData;
+                 });
+               }
+             );
+             const result = {
+               end_block_events: decoded_end_block_events,
+               begin_block_events: decoded_begin_block_events,
+               txs_results: decoded_txs_results_events,
+             };
+             return result;
            } catch (e) {
              throw new Error(
                `Error | getExecutedBlockEventsForCrosschain | ${e}`

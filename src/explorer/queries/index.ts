@@ -32,6 +32,7 @@ export const specificBlockQuery = `
         fee
         event_logs
         success
+        rawLog
         routePrice
     }
   }
