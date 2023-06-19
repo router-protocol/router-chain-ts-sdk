@@ -1,21 +1,31 @@
 import { RouterExplorer } from '../src';
 
 describe('Queries Test', () => {
-  const explorer = new RouterExplorer('testnet', '');
-  it('Fetch Crosschain by search - ', async () => {
-    const Crosschains = await explorer.getLatestCrosschains();
-    console.log('Crosschain =>', JSON.stringify(Crosschains));
-    expect(Crosschains).toBeDefined();
-  });
-  it('Fetch Crosschain by search - ', async () => {
-    const Crosschains = await explorer.getExecutedBlockEventsForCrosschain(
-      '80001',
-      '95'
-    );
-    console.log('Crosschain =>', JSON.stringify(Crosschains));
-    expect(Crosschains).toBeDefined();
-  });
-});
+                                 const explorer = new RouterExplorer(
+                                   'testnet',
+                                   ''
+                                 );
+                                 // it('Fetch Crosschain by search - ', async () => {
+                                 //   const Crosschains = await explorer.getLatestCrosschains();
+                                 //   console.log('Crosschain =>', JSON.stringify(Crosschains));
+                                 //   expect(Crosschains).toBeDefined();
+                                 // });
+                                 it('Fetch Crosschain by search - ', async () => {
+                                   // const Crosschains = await explorer.getExecutedBlockEventsForCrosschain(
+                                   //   '80001',
+                                   //   '95'
+                                   // );
+                                   // console.log('Crosschain =>', JSON.stringify(Crosschains));
+                                   const blockevents = await explorer.getBlockEvents(
+                                     '6712'
+                                   );
+                                   console.log(
+                                     'Crosschain =>',
+                                     JSON.stringify(blockevents)
+                                   );
+                                   //expect(Crosschains).toBeDefined();
+                                 });
+                               });
 
 //  it('Fetch Blocks', async () => {
 //    const latestBlocks = await explorer.getLatestBlocks(
