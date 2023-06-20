@@ -34,6 +34,19 @@ export interface BlockType {
   processed: number;
 }
 
+
+export interface BlockTypeWithTxns {
+  _id: number;
+  hash: string;
+  proposer: string;
+  txn_count: number;
+  timestamp: number;
+  total_gas: string;
+  block_reward: string;
+  processed: number;
+  transactions: TransactionType[];
+}
+
 export interface PaginatedBlock {
   totalRecords: number;
   blocks: BlockType[];
