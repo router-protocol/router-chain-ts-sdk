@@ -518,7 +518,11 @@ export class RouterExplorer {
              const crosschainData = await this.getCrosschainByAttestationId(
                crosschainId
              );
-             const requiredBlock = crosschainData.crosschain.eventHistory.find(
+             const allEventHistory = [
+               ...crosschainData.crosschain.eventHistory,
+               ...crosschainData.crosschain.ackRequest.eventHistory,
+             ];
+             const requiredBlock = allEventHistory.find(
                historyEventHistory =>
                  historyEventHistory.name.toLowerCase() ===
                  crosschainEvent.toLowerCase()
