@@ -4,6 +4,7 @@ import {
   Network,
 } from '../../networks';
 import { fromBase64ToString } from '../../utils';
+import { CrosschainEvent } from '../constants';
 import {
   latestBlockQuery,
   latestTransactionsOfAddressQuery,
@@ -29,7 +30,7 @@ import {
   specificFundPaidQuery,
 } from '../queries';
 import {
-  BlockType,
+  BlockTypeWithTxns,
   CrosschainType,
   FundDepositType,
   FundPaidType,
@@ -98,7 +99,7 @@ export class RouterExplorer {
           */
          public async getBlockByHeight(
            height: Number
-         ): Promise<{ block: BlockType }> {
+         ): Promise<{ block: BlockTypeWithTxns }> {
            try {
              const data = await gqlFetcher(
                this.chainEnvironment,
@@ -507,51 +508,31 @@ export class RouterExplorer {
           * @return {InboundOutboundMapType[]}
           * @throws {Error}
           */
-         public async getExecutedBlockEventsForCrosschain(
+         public async getBlockEventsForCrosschain(
            sourceChainId: string,
-           nonce: string
+           nonce: string,
+           crosschainEvent: CrosschainEvent
          ): Promise<any> {
            try {
              const crosschainId = sourceChainId + '-' + nonce;
              const crosschainData = await this.getCrosschainByAttestationId(
                crosschainId
              );
-             const executionBlock = crosschainData.crosschain.eventHistory.find(
+             const allEventHistory = [
+               ...crosschainData.crosschain.eventHistory,
+               ...crosschainData.crosschain.ackRequest.eventHistory,
+             ];
+             const requiredBlock = allEventHistory.find(
                historyEventHistory =>
-                 historyEventHistory.name ===
-                 'routerprotocol.routerchain.crosschain.EventCrosschainExecuted'
+                 historyEventHistory.name.toLowerCase() ===
+                 crosschainEvent.toLowerCase()
              )?.height;
-             if (!executionBlock) {
+             if (!requiredBlock) {
                throw new Error(
-                 `Error | getExecutedBlockEventsForCrosschain | EventCrosschainExecuted is not present the crosschain record.`
+                 `Error | getBlockEventsForCrosschain | ${crosschainEvent} is not present this crosschain record.`
                );
              }
-             const tmRpc = getEndpointsForNetwork(this.chainEnvironment)
-               .tmEndpoint;
-             const blockData = await restFetcher(
-               `${tmRpc}/block_results?height=${executionBlock}`
-             );
-             console.log(
-               'link =>',
-               `${tmRpc}/block_results?height=${executionBlock}`
-             );
-             return blockData.result.end_block_events.map((eventData: any) => {
-               eventData.attributes = eventData.attributes.map(
-                 (attribute: any) => {
-                   try {
-                     attribute.key = fromBase64ToString(attribute.key);
-                     attribute.value = fromBase64ToString(attribute.value);
-                   } catch (e) {
-                     console.log(
-                       'problematic attribute =>',
-                       JSON.stringify(attribute)
-                     );
-                   }
-                   return attribute;
-                 }
-               );
-               return eventData;
-             });
+             return this.getBlockEvents(requiredBlock.toString());
            } catch (e) {
              throw new Error(
                `Error | getExecutedBlockEventsForCrosschain | ${e}`
@@ -564,11 +545,6 @@ export class RouterExplorer {
                .tmEndpoint;
              const blockData = await restFetcher(
                `${tmRpc}/block_results?height=${blockNumber}`
-             );
-             console.log(
-               'link =>',
-               `${tmRpc}/block_results?height=${blockNumber}`,
-               blockData
              );
              const decoded_end_block_events = blockData.result.end_block_events.map(
                (eventData: any) => {

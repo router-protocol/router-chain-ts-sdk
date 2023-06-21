@@ -122,6 +122,9 @@ export const executeQueryInjected = async ({
       [new Uint8Array(2)]
     );
     const simulationResponse = await simulateRawTx(simulatedTx, nodeUrl);
+    if (!simulationResponse.hasOwnProperty('gas_info')) {
+      throw new Error(simulationResponse.message);
+    }
     const simulatedFee = {
       amount: [
         {
@@ -246,6 +249,9 @@ export const sendEthTxnToRouterChain = async ({
     [new Uint8Array(2)]
   );
   const simulationResponse = await simulateRawTx(simulatedTx, nodeUrl);
+  if (!simulationResponse.hasOwnProperty('gas_info')) {
+    throw new Error(simulationResponse.message);
+  }
   const simulatedFee = {
     amount: [
       {

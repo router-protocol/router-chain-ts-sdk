@@ -1,3 +1,4 @@
+const MsgUnjail = '/cosmos.slashing.v1beta1.MsgUnjail';
 const MsgExec = '/cosmos.authz.v1beta1.MsgExec';
 const MsgUpdateAdmin = '/cosmwasm.wasm.v1.MsgUpdateAdmin';
 const MsgStoreCode = '/cosmwasm.wasm.v1.MsgStoreCode';
@@ -69,6 +70,7 @@ const MsgGasPrices = '/routerprotocol.routerchain.voyager.MsgFundsDeposited';
 
 const ActionTxType = {
   [MsgGrant.toLowerCase()]: 'Grant',
+  [MsgUnjail.toLowerCase()]: 'Unjail',
   [MsgExec.toLowerCase()]: 'Exec',
   [MsgRevoke.toLowerCase()]: 'Revoke',
   [MsgSend.toLowerCase()]: 'Send Coins',
@@ -93,7 +95,7 @@ const ActionTxType = {
   [MsgSetOrchestratorAddress.toLowerCase()]: 'Set Orchestrator Address',
   [MsgValsetUpdatedClaim.toLowerCase()]: 'Valset Updated Claim',
   [MsgValsetConfirm.toLowerCase()]: 'Valset Confirm',
-  [MsgConfirmCrosschainAckRequest.toLowerCase()]: 'Confrim Crossschain Ack Request',
+  [MsgConfirmCrosschainAckRequest.toLowerCase()]: 'Confirm Crossschain Ack Request',
   [MsgCrosschainAckRequest.toLowerCase()]: 'Crosschain Ack Request',
   [MsgCrosschainRequest.toLowerCase()]: 'Crosschain Request',
   [MsgCrosschainAckReceipt.toLowerCase()]: 'Crosschain Ack Receipt',
