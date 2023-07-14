@@ -223,6 +223,8 @@ export const sendEthTxnToRouterChain = async ({
     memo: memo ?? '',
   };
 
+  console.log('Context =>', context);
+
   //EIP DATA
   const eipData: {
     msgs: Msgs | Msgs[];
@@ -241,6 +243,8 @@ export const sendEthTxnToRouterChain = async ({
       feePayer: getRouterSignerAddress(ethereumAddress),
     },
   };
+
+  console.log('eipData =>', eipData);
   // Simulationx
   const simulatedTxPayload = getEtherMintTxPayload(context, eipData);
   const simulatedTx = createTxRawForBroadcast(

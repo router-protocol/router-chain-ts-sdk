@@ -34,6 +34,20 @@ export interface BlockType {
   processed: number;
 }
 
+export interface BlockTypeWithSignatures {
+  _id: number;
+  hash: string;
+  proposer: string;
+  txn_count: number;
+  timestamp: number;
+  total_gas: string;
+  block_reward: string;
+  processed: number;
+  signatures: {
+    validatorAddress: string;
+    timestamp: number;
+  };
+}
 
 export interface BlockTypeWithTxns {
   _id: number;
@@ -44,12 +58,21 @@ export interface BlockTypeWithTxns {
   total_gas: string;
   block_reward: string;
   processed: number;
+  signatures: {
+    validatorAddress: string;
+    timestamp: number;
+  };
   transactions: TransactionType[];
 }
 
 export interface PaginatedBlock {
   totalRecords: number;
   blocks: BlockType[];
+}
+
+export interface PaginatedBlockWithSignature {
+  totalRecords: number;
+  blocks: BlockTypeWithSignatures[];
 }
 
 export interface PaginatedTransaction {
@@ -286,4 +309,10 @@ export interface FundDepositType {
 export interface PaginatedFundDeposit {
   totalRecords: number;
   fundDeposit: FundDepositType[];
+}
+
+export interface ValidatorUptime {
+  operatorAddress: string;
+  consensusAddress: string;
+  upTime: string;
 }
