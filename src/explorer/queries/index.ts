@@ -11,6 +11,23 @@ export const latestBlockQuery = `query getLatestBlocks($limit: Int!, $timeRange:
   }
 }
 `;
+export const latestBlockQueryWithSignatures = `query getLatestBlocks($limit: Int!, $timeRange:[Int],$offset: Int!){
+  paginatedBlock(sortBy:{_id:desc},filter:{timestamp:{range:$timeRange}},limit:$limit,offset:$offset){
+    totalRecords
+    blocks{
+      _id
+      hash
+      proposer
+      txn_count
+      timestamp
+      signatures{
+      validatorAddress
+      timestamp
+    }
+    }
+  }
+}
+`;
 
 export const specificBlockQuery = `
   query getBlockByHeight($height: Int!){
@@ -20,6 +37,10 @@ export const specificBlockQuery = `
     proposer
     txn_count
     timestamp
+    signatures{
+      validatorAddress
+      timestamp
+    }
     transactions{
          _id
         height
@@ -441,8 +462,8 @@ export const specificCrosschainQuery = `
 }
 `;
 export const searchSpecificCrosschainQuery = `
-  query getCrosschainByFormAttestationId($timeRange:[Int], $searchTerm: String! ,$limit: Int!, $offset: Int!){
-  paginatedCrosschain(filter:{createdAt:{range:$timeRange}},where_or:{sourceTxHash:$searchTerm, srcTxOrigin:$searchTerm, requestSender:$searchTerm},sortBy:{createdAt:desc},limit:$limit,offset:$offset){
+  query getCrosschainByFormAttestationId($timeRange:[Int], $searchTerm: String! , $handlerAddress: String!, $limit: Int!, $offset: Int!){
+  paginatedCrosschain(filter:{createdAt:{range:$timeRange}},where_or:{sourceTxHash:$searchTerm, srcTxOrigin:$searchTerm, requestSender:$searchTerm},handlerAddress:$handlerAddress,sortBy:{createdAt:desc},limit:$limit,offset:$offset){
     totalRecords
     crosschains{
       id
@@ -611,8 +632,8 @@ export const searchSpecificCrosschainQuery = `
 `;
 
 export const searchSpecificCrosschainSrcChainIdQuery = `
-  query getCrosschainByFormAttestationId($timeRange:[Int],$sourceChainIds: [String],$searchTerm: String! ,$limit: Int!, $offset: Int!){
-  paginatedCrosschain(filter:{srcChainId:{in:$sourceChainIds}, createdAt:{range:$timeRange}},where_or:{sourceTxHash:$searchTerm, srcTxOrigin:$searchTerm, requestSender:$searchTerm},sortBy:{createdAt:desc},limit:$limit,offset:$offset){
+  query getCrosschainByFormAttestationId($timeRange:[Int],$sourceChainIds: [String],$handlerAddress: String!,$searchTerm: String! ,$limit: Int!, $offset: Int!){
+  paginatedCrosschain(filter:{srcChainId:{in:$sourceChainIds}, createdAt:{range:$timeRange}},where_or:{sourceTxHash:$searchTerm, srcTxOrigin:$searchTerm, requestSender:$searchTerm},handlerAddress:$handlerAddress,sortBy:{createdAt:desc},limit:$limit,offset:$offset){
     totalRecords
     crosschains{
       id
@@ -781,8 +802,8 @@ export const searchSpecificCrosschainSrcChainIdQuery = `
 `;
 
 export const searchSpecificCrosschainDestChainIdQuery = `
-  query getCrosschainByFormAttestationId($timeRange:[Int],$destinationChainIds: [String],$searchTerm: String! ,$limit: Int!, $offset: Int!){
-  paginatedCrosschain(filter:{destChainId:{in:$destinationChainIds},createdAt:{range:$timeRange}},where_or:{sourceTxHash:$searchTerm, srcTxOrigin:$searchTerm, requestSender:$searchTerm},sortBy:{createdAt:desc},limit:$limit,offset:$offset){
+  query getCrosschainByFormAttestationId($timeRange:[Int],$destinationChainIds: [String],$searchTerm: String! , $handlerAddress: String!,$limit: Int!, $offset: Int!){
+  paginatedCrosschain(filter:{destChainId:{in:$destinationChainIds},createdAt:{range:$timeRange}},where_or:{sourceTxHash:$searchTerm, srcTxOrigin:$searchTerm, requestSender:$searchTerm},handlerAddress:$handlerAddress,sortBy:{createdAt:desc},limit:$limit,offset:$offset){
     totalRecords
     crosschains{
      id
@@ -951,8 +972,8 @@ export const searchSpecificCrosschainDestChainIdQuery = `
 `;
 
 export const searchSpecificCrosschainChainIdQuery = `
-  query getCrosschainByFormAttestationId($timeRange:[Int], $sourceChainIds: [String],$destinationChainIds: [String],$searchTerm: String! ,$limit: Int!, $offset: Int!){
-  paginatedCrosschain(filter:{srcChainId:{in:$sourceChainIds},destChainId:{in:$destinationChainIds}, createdAt:{range:$timeRange}},where_or:{sourceTxHash:$searchTerm, srcTxOrigin:$searchTerm, requestSender:$searchTerm},sortBy:{createdAt:desc},limit:$limit,offset:$offset){
+  query getCrosschainByFormAttestationId($timeRange:[Int], $sourceChainIds: [String],$destinationChainIds: [String],$searchTerm: String! , $handlerAddress: String!,$limit: Int!, $offset: Int!){
+  paginatedCrosschain(filter:{srcChainId:{in:$sourceChainIds},destChainId:{in:$destinationChainIds}, createdAt:{range:$timeRange}},where_or:{sourceTxHash:$searchTerm, srcTxOrigin:$searchTerm, requestSender:$searchTerm},handlerAddress:$handlerAddress,sortBy:{createdAt:desc},limit:$limit,offset:$offset){
     totalRecords
     crosschains{
       id
@@ -1599,6 +1620,16 @@ export const searchSpecificFundDepositChainIdQuery = `
       createdAt
       updatedAt
     }
+  }
+}
+`;
+
+export const validatorsUptimeQuery = `
+query getValidatorsUptime{
+  validators{
+    operatorAddress
+    consensusAddress
+    upTime
   }
 }
 `;
