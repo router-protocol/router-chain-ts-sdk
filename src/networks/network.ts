@@ -23,22 +23,24 @@ import {
   urlEndpointsDocker,
   urlEndpointsAlphaDevnet,
   urlEndpointsInternalDevnet,
+  urlEndpointsTestnetEu,
 } from './endpoints';
 import { ChainInfo, getNetworkType, Network, NetworkEndpoints } from './types';
 
 /**
  * @hidden
  * Supported network endpoints for Router chain. Also see {@link Network} for network names.
- * 
+ *
  * @example
  * const endpoint =  networkEndpoints["alpha-devnet"]; // here, 'alpha-devnet' is network name
- * 
+ *
  * @group Network
  */
- const NETWORK_ENDPOINT: Record<Network, NetworkEndpoints> = {
+const NETWORK_ENDPOINT: Record<Network, NetworkEndpoints> = {
   [Network.Mainnet]: urlEndpointsMainnet,
   [Network.Devnet]: urlEndpointsDevnet,
   [Network.Testnet]: urlEndpointsTestnet,
+  [Network.TestnetEu]: urlEndpointsTestnetEu,
   [Network.Local]: urlEndpointsLocal,
   [Network.Docker]: urlEndpointsDocker,
   [Network.AlphaDevnet]: urlEndpointsAlphaDevnet,
@@ -48,13 +50,14 @@ import { ChainInfo, getNetworkType, Network, NetworkEndpoints } from './types';
 /**
  * @hidden
  * Supported Router chain info.
- * 
+ *
  * @group Network
  */
 const CHAIN_INFO: Record<Network, ChainInfo> = {
   [Network.Mainnet]: mainnetChainInfo,
   [Network.Devnet]: devnetChainInfo,
   [Network.Testnet]: testnetChainInfo,
+  [Network.TestnetEu]: testnetChainInfo,
   [Network.Local]: localChainInfo,
   [Network.Docker]: dockerChainInfo,
   [Network.AlphaDevnet]: alphaDevnetChainInfo,
@@ -65,6 +68,7 @@ const ETH_CHAINID: Record<Network, EthereumChainId> = {
   [Network.Mainnet]: EthereumChainId.MainnetEvm,
   [Network.Devnet]: EthereumChainId.DevnetEvm,
   [Network.Testnet]: EthereumChainId.TestnetEvm,
+  [Network.TestnetEu]: EthereumChainId.TestnetEvm,
   [Network.Local]: EthereumChainId.LocalEvm,
   [Network.Docker]: EthereumChainId.Goerli,
   [Network.AlphaDevnet]: EthereumChainId.AlphaDevnetEvm,
@@ -73,10 +77,10 @@ const ETH_CHAINID: Record<Network, EthereumChainId> = {
 
 /**
  * Get endpoint object for a network. Also see {@link Network} for different networks on Router chain.
- * 
+ *
  * @example
  * const endpoint =  getEndpointsForNetwork(Network.devnet);
- * 
+ *
  * @group Network
  */
 export const getEndpointsForNetwork = (network: Network): NetworkEndpoints =>

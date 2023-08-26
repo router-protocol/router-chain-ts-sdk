@@ -46,7 +46,7 @@ export interface BlockTypeWithSignatures {
   signatures: {
     validatorAddress: string;
     timestamp: number;
-  };
+  }[];
 }
 
 export interface BlockTypeWithTxns {
@@ -61,7 +61,7 @@ export interface BlockTypeWithTxns {
   signatures: {
     validatorAddress: string;
     timestamp: number;
-  };
+  }[];
   transactions: TransactionType[];
 }
 

@@ -16,6 +16,15 @@ export const urlEndpointsTestnet: NetworkEndpoints = {
          tmEndpoint: 'https://tm.rpc.testnet.routerchain.dev',
          rpcEndpoint: 'https://evm.rpc.testnet.routerchain.dev',
        };
+       
+export const urlEndpointsTestnetEu: NetworkEndpoints = {
+  explorerGql: 'https://explorer-api.testnet-eu.routerchain.dev/gql/query',
+  explorerGqlWs: 'wss://explorer-api.testnet-eu.routerchain.dev/gql/query',
+  lcdEndpoint: 'https://lcd.testnet-eu.routerchain.dev',
+  grpcEndpoint: 'https://grpcweb.testnet-eu.routerchain.dev',
+  tmEndpoint: 'https://tm.rpc.testnet-eu.routerchain.dev',
+  rpcEndpoint: 'https://evm.rpc.testnet-eu.routerchain.dev',
+};
 
 export const urlEndpointsInternalDevnet: NetworkEndpoints = {
          explorerGql: 'https://alpha-explorer-api.routerprotocol.com/gql/query',
