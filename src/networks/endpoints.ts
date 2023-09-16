@@ -17,14 +17,23 @@ export const urlEndpointsTestnet: NetworkEndpoints = {
          rpcEndpoint: 'https://evm.rpc.testnet.routerchain.dev',
        };
        
-export const urlEndpointsTestnetEu: NetworkEndpoints = {
-  explorerGql: 'https://explorer-api.testnet-eu.routerchain.dev/gql/query',
-  explorerGqlWs: 'wss://explorer-api.testnet-eu.routerchain.dev/gql/query',
-  lcdEndpoint: 'https://lcd.testnet-eu.routerchain.dev',
-  grpcEndpoint: 'https://grpcweb.testnet-eu.routerchain.dev',
-  tmEndpoint: 'https://tm.rpc.testnet-eu.routerchain.dev',
-  rpcEndpoint: 'https://evm.rpc.testnet-eu.routerchain.dev',
+export const urlEndpointsLoadtest: NetworkEndpoints = {
+  explorerGql: 'https://explorer-api.testnet.routerchain.dev/gql/query',
+  explorerGqlWs: 'wss://explorer-api.testnet.routerchain.dev/gql/query',
+  lcdEndpoint: 'http://13.232.64.196:1317',
+  grpcEndpoint: 'http://13.232.64.196:9090',
+  tmEndpoint: 'http://13.232.64.196:26657',
+  rpcEndpoint: 'http://13.232.64.196:8545',
 };
+
+export const urlEndpointsTestnetEu: NetworkEndpoints = {
+         explorerGql: 'https://explorer-api.testnet.routerchain.dev/gql/query',
+         explorerGqlWs: 'wss://explorer-api.testnet.routerchain.dev/gql/query',
+         lcdEndpoint: 'https://lcd.testnet-eu.routerchain.dev',
+         grpcEndpoint: 'https://grpcweb.testnet-eu.routerchain.dev',
+         tmEndpoint: 'https://tm.rpc.testnet-eu.routerchain.dev',
+         rpcEndpoint: 'https://evm.rpc.testnet-eu.routerchain.dev',
+       };
 
 export const urlEndpointsInternalDevnet: NetworkEndpoints = {
          explorerGql: 'https://alpha-explorer-api.routerprotocol.com/gql/query',

@@ -11,6 +11,7 @@ import {
   devnetChainInfo,
   dockerChainInfo,
   internalDevnetChainInfo,
+  loadTestChainInfo,
   localChainInfo,
   mainnetChainInfo,
   testnetChainInfo,
@@ -24,6 +25,7 @@ import {
   urlEndpointsAlphaDevnet,
   urlEndpointsInternalDevnet,
   urlEndpointsTestnetEu,
+  urlEndpointsLoadtest,
 } from './endpoints';
 import { ChainInfo, getNetworkType, Network, NetworkEndpoints } from './types';
 
@@ -45,6 +47,7 @@ const NETWORK_ENDPOINT: Record<Network, NetworkEndpoints> = {
   [Network.Docker]: urlEndpointsDocker,
   [Network.AlphaDevnet]: urlEndpointsAlphaDevnet,
   [Network.InternalDevnet]: urlEndpointsInternalDevnet,
+  [Network.LoadTest]: urlEndpointsLoadtest,
 };
 
 /**
@@ -62,6 +65,7 @@ const CHAIN_INFO: Record<Network, ChainInfo> = {
   [Network.Docker]: dockerChainInfo,
   [Network.AlphaDevnet]: alphaDevnetChainInfo,
   [Network.InternalDevnet]: internalDevnetChainInfo,
+  [Network.LoadTest]: loadTestChainInfo,
 };
 
 const ETH_CHAINID: Record<Network, EthereumChainId> = {
@@ -73,6 +77,7 @@ const ETH_CHAINID: Record<Network, EthereumChainId> = {
   [Network.Docker]: EthereumChainId.Goerli,
   [Network.AlphaDevnet]: EthereumChainId.AlphaDevnetEvm,
   [Network.InternalDevnet]: EthereumChainId.InternalDevnet,
+  [Network.LoadTest]: EthereumChainId.TestnetEvm,
 };
 
 /**

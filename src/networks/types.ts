@@ -12,6 +12,7 @@ export enum Network {
   TestnetEu = 'testnet-eu',
   Mainnet = 'mainnet',
   Docker = 'docker',
+  LoadTest = 'load-test',
 }
 
 export const getNetworkType = (type: string) => {
@@ -32,6 +33,8 @@ export const getNetworkType = (type: string) => {
       return Network.Mainnet;
     case 'docker':
       return Network.Docker;
+    case 'load-test':
+      return Network.LoadTest;
     default:
       return Network.Devnet;
   }
