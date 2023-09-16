@@ -26,7 +26,7 @@ export const gqlFetcher = async (
            );
            return response.data.data;
          } catch (e) {
-           console.error(`Error while fetching the data - ${e}`);
+           throw e;
          }
        };
 

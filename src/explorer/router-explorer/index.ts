@@ -92,7 +92,7 @@ export class RouterExplorer {
       );
       return data;
     } catch (e) {
-      throw new Error(`Error | getLatestBlocks | ${e}`);
+      throw e;
     }
   }
 
@@ -117,7 +117,7 @@ export class RouterExplorer {
       );
       return data;
     } catch (e) {
-      throw new Error(`Error | getLatestBlocks | ${e}`);
+      throw e;
     }
   }
 
@@ -140,7 +140,7 @@ export class RouterExplorer {
       });
       return data;
     } catch (e) {
-      throw new Error(`Error | getLatestBlocks | ${e}`);
+      throw e;
     }
   }
   /**
@@ -174,7 +174,7 @@ export class RouterExplorer {
       );
       return data;
     } catch (e) {
-      throw new Error(`Error | getLatestTransactions | ${e}`);
+      throw e;
     }
   }
   /**
@@ -208,7 +208,7 @@ export class RouterExplorer {
       );
       return data;
     } catch (e) {
-      throw new Error(`Error | getLatestTransactions | ${e}`);
+      throw e;
     }
   }
   /**
@@ -234,7 +234,7 @@ export class RouterExplorer {
       );
       return data;
     } catch (e) {
-      throw new Error(`Error | getLatestTransactions | ${e}`);
+      throw e;
     }
   }
 
@@ -269,7 +269,7 @@ export class RouterExplorer {
       );
       return data;
     } catch (e) {
-      throw new Error(`Error | getLatestCrosschains | ${e}`);
+      throw e;
     }
   }
   /**
@@ -317,7 +317,7 @@ export class RouterExplorer {
       );
       return data;
     } catch (e) {
-      throw new Error(`Error | getCrosschainBySearch | ${e}`);
+      throw e;
     }
   }
   /**
@@ -343,7 +343,7 @@ export class RouterExplorer {
       );
       return data;
     } catch (e) {
-      throw new Error(`Error | getCrosschainByAttestationId | ${e}`);
+      throw e;
     }
   }
   /**
@@ -424,7 +424,7 @@ export class RouterExplorer {
       );
       return data;
     } catch (e) {
-      throw new Error(`Error | getCrosschainBySearch | ${e}`);
+      throw e;
     }
   }
   /**
@@ -450,7 +450,7 @@ export class RouterExplorer {
       );
       return data;
     } catch (e) {
-      throw new Error(`Error | getFundDepositById | ${e}`);
+      throw e;
     }
   }
   /**
@@ -484,7 +484,7 @@ export class RouterExplorer {
       );
       return data;
     } catch (e) {
-      throw new Error(`Error | getLatestFundPaids | ${e}`);
+      throw e;
     }
   }
   /**
@@ -525,7 +525,7 @@ export class RouterExplorer {
       );
       return data;
     } catch (e) {
-      throw new Error(`Error | getFundPaidBySearch | ${e}`);
+      throw e;
     }
   }
   /**
@@ -551,7 +551,7 @@ export class RouterExplorer {
       );
       return data;
     } catch (e) {
-      throw new Error(`Error | getFundPaidById | ${e}`);
+      throw e;
     }
   }
   /**
@@ -580,7 +580,7 @@ export class RouterExplorer {
       );
       return data;
     } catch (e) {
-      throw new Error(`Error | getOutboundsForInbound | ${e}`);
+      throw e;
     }
   }
 
@@ -602,7 +602,7 @@ export class RouterExplorer {
       );
       return data;
     } catch (e) {
-      throw new Error(`Error | getValidatorsUptime | ${e}`);
+      throw e;
     }
   }
 
