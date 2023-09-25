@@ -61,7 +61,7 @@ export const specificBlockQuery = `
 `;
 export const latestTransactionsQuery = `
   query getLatestTransactions($timeRange:[Int], $limit: Int!, $offset: Int!){
-    paginatedTransaction(filter:{timestamp:{range:$timeRange}},sortBy:{height:desc,timestamp:desc},limit:$limit,offset:$offset){
+    paginatedTransaction(filter:{timestamp:{range:$timeRange}},sortBy:{height:desc},limit:$limit,offset:$offset){
     totalRecords
   transactions{
      _id
@@ -84,7 +84,7 @@ export const latestTransactionsQuery = `
 
 export const latestTransactionsOfAddressQuery = `
   query getLatestTransactions($timeRange:[Int], $address: String!,$limit: Int!, $offset: Int!){
-   paginatedTransaction(filter:{timestamp:{range:$timeRange}}, where_or:{sender:$address, receiver:$address}, sortBy:{height:desc,timestamp:desc}, limit:$limit, offset:$offset){
+   paginatedTransaction(filter:{timestamp:{range:$timeRange}}, where_or:{sender:$address, receiver:$address}, sortBy:{height:desc}, limit:$limit, offset:$offset){
     totalRecords
     transactions{
       _id
