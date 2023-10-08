@@ -61,7 +61,7 @@ export const specificBlockQuery = `
 `;
 export const latestTransactionsQuery = `
   query getLatestTransactions($timeRange:[Int], $limit: Int!, $offset: Int!){
-    paginatedTransaction(filter:{timestamp:{range:$timeRange}},sortBy:{height:desc,timestamp:desc},limit:$limit,offset:$offset){
+    paginatedTransaction(filter:{timestamp:{range:$timeRange}},sortBy:{height:desc},limit:$limit,offset:$offset){
     totalRecords
   transactions{
      _id
@@ -84,7 +84,7 @@ export const latestTransactionsQuery = `
 
 export const latestTransactionsOfAddressQuery = `
   query getLatestTransactions($timeRange:[Int], $address: String!,$limit: Int!, $offset: Int!){
-   paginatedTransaction(filter:{timestamp:{range:$timeRange}}, where_or:{sender:$address, receiver:$address}, sortBy:{height:desc,timestamp:desc}, limit:$limit, offset:$offset){
+   paginatedTransaction(filter:{timestamp:{range:$timeRange}}, where_or:{sender:$address, receiver:$address}, limit:$limit, offset:$offset){
     totalRecords
     transactions{
       _id
@@ -127,7 +127,7 @@ export const specificTransactionQuery = `
 
 export const latestCrosschainsQuery = `
   query getLatestCrosschains($timeRange:[Int], $limit: Int!, $offset: Int!){
-    paginatedCrosschain(filter:{updatedAt:{range:$timeRange}}, sortBy:{createdAt:desc}, limit:$limit, offset:$offset){
+    paginatedCrosschain(filter:{createdAt:{range:$timeRange}}, sortBy:{createdAt:desc}, limit:$limit, offset:$offset){
     totalRecords
     crosschains{
       id
@@ -1158,7 +1158,7 @@ query findOutboundsToInbound($middlewareContract:String!,$inboundId:String!){
 
 export const latestFundPaidQuery = `
   query getLatestFundPaid($timeRange:[Int], $limit: Int!, $offset: Int!){
-    paginatedFundPaid(filter:{updatedAt:{range:$timeRange}}, sortBy:{createdAt:desc}, limit:$limit, offset:$offset){
+    paginatedFundPaid(filter:{createdAt:{range:$timeRange}}, sortBy:{createdAt:desc}, limit:$limit, offset:$offset){
     totalRecords
     fundPaid{
       id
@@ -1336,7 +1336,7 @@ export const searchSpecificFundPaidSrcChainIdQuery = `
 
 export const latestFundDepositQuery = `
   query getLatestFundDeposit($timeRange:[Int], $limit: Int!, $offset: Int!){
-    paginatedFundDeposit(filter:{updatedAt:{range:$timeRange}}, sortBy:{createdAt:desc}, limit:$limit, offset:$offset){
+    paginatedFundDeposit(filter:{createdAt:{range:$timeRange}}, sortBy:{createdAt:desc}, limit:$limit, offset:$offset){
     totalRecords
     fundDeposit{
       id

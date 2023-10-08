@@ -132,23 +132,21 @@ interface Attributes {
 
 export const getTransactionTypes = (rawLog: RawLog[]) => {
   const txTypes: string[] = [];
-  rawLog.forEach(log => {
-    log.events.forEach(eventLog => {
-      if (eventLog.type === 'message') {
-        eventLog.attributes.forEach(attribute => {
-          if (attribute.key === 'action') {
-            try {
-              const txType = ActionTxType[attribute.value.toLowerCase()];
-              if (txType) {
-                txTypes.push(txType);
-              }
-            } catch (e) {
-              console.log('getTransactionTypes error =>', e);
+  rawLog[0].events.forEach(eventLog => {
+    if (eventLog.type === 'message') {
+      eventLog.attributes.forEach(attribute => {
+        if (attribute.key === 'action') {
+          try {
+            const txType = ActionTxType[attribute.value.toLowerCase()];
+            if (txType) {
+              txTypes.push(txType);
             }
+          } catch (e) {
+            console.log('getTransactionTypes error =>', e);
           }
-        });
-      }
-    });
+        }
+      });
+    }
   });
   return txTypes;
 };

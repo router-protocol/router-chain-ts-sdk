@@ -17,6 +17,24 @@ export const urlEndpointsTestnet: NetworkEndpoints = {
          rpcEndpoint: 'https://evm.rpc.testnet.routerchain.dev',
        };
 
+export const urlEndpointsLoadtest: NetworkEndpoints = {
+         explorerGql: 'http://52.66.245.51:3000/gql/query',
+         explorerGqlWs: 'ws://52.66.245.51:3000/gql/query',
+         lcdEndpoint: 'http://13.232.64.196:1317',
+         grpcEndpoint: 'http://13.232.64.196:9090',
+         tmEndpoint: 'http://13.232.64.196:26657',
+         rpcEndpoint: 'http://13.232.64.196:8545',
+       };
+
+export const urlEndpointsTestnetEu: NetworkEndpoints = {
+         explorerGql: 'https://explorer-api.testnet.routerchain.dev/gql/query',
+         explorerGqlWs: 'wss://explorer-api.testnet.routerchain.dev/gql/query',
+         lcdEndpoint: 'https://lcd.testnet-eu.routerchain.dev',
+         grpcEndpoint: 'https://grpcweb.testnet-eu.routerchain.dev',
+         tmEndpoint: 'https://tm.rpc.testnet-eu.routerchain.dev',
+         rpcEndpoint: 'https://evm.rpc.testnet-eu.routerchain.dev',
+       };
+
 export const urlEndpointsInternalDevnet: NetworkEndpoints = {
          explorerGql: 'https://alpha-explorer-api.routerprotocol.com/gql/query',
          explorerGqlWs: 'wss://alpha-explorer-api.routerprotocol.com/gql/query',
@@ -49,10 +67,10 @@ export const urlEndpointsDevnet: NetworkEndpoints = {
 export const urlEndpointsLocal: NetworkEndpoints = {
          explorerGql: 'http://127.0.0.1:3000/gql/query',
          explorerGqlWs: 'ws://127.0.0.1:3000/gql/query',
-         lcdEndpoint: 'https://devnet-alpha.lcd.routerprotocol.com',
-         grpcEndpoint: 'https://devnet-alpha.grpcweb.routerprotocol.com',
-         tmEndpoint: 'https://devnet-alpha.tm.routerprotocol.com',
-         rpcEndpoint: 'https://devnet-alpha.evm.rpc.routerprotocol.com',
+         lcdEndpoint: 'http://127.0.0.1:1317',
+         grpcEndpoint: 'http://127.0.0.1:9090',
+         tmEndpoint: 'http://127.0.0.1:26657',
+         rpcEndpoint: 'http://127.0.0.1:8545',
        };
 
 export const urlEndpointsDocker: NetworkEndpoints = {
