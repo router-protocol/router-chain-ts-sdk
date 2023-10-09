@@ -20,10 +20,10 @@ export const urlEndpointsTestnet: NetworkEndpoints = {
 export const urlEndpointsLoadtest: NetworkEndpoints = {
          explorerGql: 'http://52.66.245.51:3000/gql/query',
          explorerGqlWs: 'ws://52.66.245.51:3000/gql/query',
-         lcdEndpoint: 'http://13.232.64.196:1317',
-         grpcEndpoint: 'http://13.232.64.196:9090',
-         tmEndpoint: 'http://13.232.64.196:26657',
-         rpcEndpoint: 'http://13.232.64.196:8545',
+         lcdEndpoint: 'http://3.110.53.116:1317',
+         grpcEndpoint: 'http://3.110.53.116:9090',
+         tmEndpoint: 'http://3.110.53.116:26657',
+         rpcEndpoint: 'http://3.110.53.116:8545',
        };
 
 export const urlEndpointsTestnetEu: NetworkEndpoints = {
