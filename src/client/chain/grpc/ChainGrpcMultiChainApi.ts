@@ -1,4 +1,4 @@
-import { Query as MultiChainQuery } from '@routerprotocol/chain-api/multichain/query_pb_service';
+import { Query as MultiChainQuery } from '@routerprotocol/chain-api/routerchain/multichain/query_pb_service';
 import {
   QueryAllChainConfigRequest,
   QueryAllChainConfigResponse,
@@ -8,7 +8,7 @@ import {
   QueryAllContractConfigResponse,
   QueryAllContractConfigByChainIdRequest,
   QueryAllContractConfigByChainIdResponse,
-} from '@routerprotocol/chain-api/multichain/query_pb';
+} from '@routerprotocol/chain-api/routerchain/multichain/query_pb';
 import BaseConsumer from '../../BaseGrpcConsumer';
 
 /**
