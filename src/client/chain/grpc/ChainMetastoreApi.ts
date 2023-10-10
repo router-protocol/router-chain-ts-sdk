@@ -1,11 +1,11 @@
-import { Query as MetastoreQuery } from '@routerprotocol/chain-api/metastore/query_pb_service';
+import { Query as MetastoreQuery } from '@routerprotocol/chain-api/routerchain/metastore/query_pb_service';
 
 import {
     QueryAllMetaInfoRequest,
     QueryAllMetaInfoResponse,
-    QueryGetMetaInfoRequest,
-    QueryGetMetaInfoResponse
-} from '@routerprotocol/chain-api/metastore/query_pb';
+    QueryAllMetaInfoResponseByChainAndAddress,
+    QueryAllMetaInfoRequestByChainAndAddress
+} from '@routerprotocol/chain-api/routerchain/metastore/query_pb';
 import BaseConsumer from '../../BaseGrpcConsumer';
 import { ChainGrpcMetastoreTransformer } from '../transformers';
 
@@ -29,24 +29,25 @@ export class ChainGrpcMetastoreApi extends BaseConsumer {
     }
   }
 
-  async fetchMetastoreInfo(chainId: string, dappAddress: string) {
-    const request = new QueryGetMetaInfoRequest();
-    request.setChainId(chainId)
-    request.setDappAddress(dappAddress)
+  // async fetchMetastoreInfo(chainId: string, dappAddress: string) {
+  //   const request = new QueryAllMetaInfoRequestByChainAndAddress();
+  //   request.setChainIds(chainId)
+  //   request.setAddress(dappAddress)
 
-    try {
-      const response = await this.request<
-      QueryGetMetaInfoRequest,
-      QueryGetMetaInfoResponse,
-        typeof MetastoreQuery.MetaInfo
-      >(request, MetastoreQuery.MetaInfo);
+  //   try {
+  //     const response = await this.request<
+  //     QueryAllMetaInfoRequestByChainAndAddress,
+  //     QueryAllMetaInfoResponseByChainAndAddress,
+  //       typeof MetastoreQuery.MetaInfoAllByChainAndAddress
+  //     >(request, MetastoreQuery.MetaInfoAllByChainAndAddress);
 
-      return ChainGrpcMetastoreTransformer.metastoreInfo(response);
-    } catch (e) {
-      //@ts-ignore
-      throw new Error(e.message);
-    }
-  }
+  //     return response.getMetainfoList
+  //     return ChainGrpcMetastoreTransformer.metastoreInfo(response);
+  //   } catch (e) {
+  //     //@ts-ignore
+  //     throw new Error(e.message);
+  //   }
+  // }
 
 
 }
