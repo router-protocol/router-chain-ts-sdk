@@ -7,7 +7,6 @@ import {
     QueryAllMetaInfoRequestByChainAndAddress
 } from '@routerprotocol/chain-api/routerchain/metastore/query_pb';
 import BaseConsumer from '../../BaseGrpcConsumer';
-import { ChainGrpcMetastoreTransformer } from '../transformers';
 
 
 export class ChainGrpcMetastoreApi extends BaseConsumer {
@@ -22,7 +21,7 @@ export class ChainGrpcMetastoreApi extends BaseConsumer {
         typeof MetastoreQuery.MetaInfoAll
       >(request, MetastoreQuery.MetaInfoAll);
 
-      return ChainGrpcMetastoreTransformer.allMetastoreInfo(response);
+      return response.toObject();
     } catch (e) {
       //@ts-ignore
       throw new Error(e.message);

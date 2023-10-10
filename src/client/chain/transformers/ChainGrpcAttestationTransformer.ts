@@ -5,10 +5,10 @@ import {
     QueryLatestValsetResponse,
     QueryLastEventNonceResponse,
     QueryListOrchestratorsResponse
-  } from '@routerprotocol/chain-api/attestation/query_pb';
-import { Valset } from '@routerprotocol/chain-api/attestation/valset_pb';
-import { BridgeValidator } from '@routerprotocol/chain-api/attestation/bridge_validator_pb'
-import { MsgSetOrchestratorAddress as Orchestrator } from '@routerprotocol/chain-api/attestation/tx_pb';
+  } from '@routerprotocol/chain-api/routerchain/attestation/query_pb';
+import { Valset } from '@routerprotocol/chain-api/routerchain/attestation/valset_pb';
+import { BridgeValidator } from '@routerprotocol/chain-api/routerchain/attestation/bridge_validator_pb'
+import { MsgSetOrchestratorAddress as Orchestrator } from '@routerprotocol/chain-api/routerchain/attestation/tx_pb';
 import { PageResponse } from '@routerprotocol/chain-api/cosmos/base/query/v1beta1/pagination_pb';
 import { grpcPaginationToPagination } from '../../../utils/pagination';
 
