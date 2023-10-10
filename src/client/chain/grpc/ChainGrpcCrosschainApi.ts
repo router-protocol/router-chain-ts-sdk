@@ -4,6 +4,8 @@ import {
   QueryAllCrosschainRequestResponse,
   QueryAllReadyToExecuteCrosschainRequestRequest,
   QueryAllReadyToExecuteCrosschainRequestResponse,
+  QueryAllReadyToExecuteCrosschainAckRequestRequest,
+  QueryAllReadyToExecuteCrosschainAckRequestResponse,
   QueryAllCrosschainRequestConfirmRequest,
   QueryAllCrosschainRequestConfirmResponse,
   QueryAllCrosschainAckRequestRequest,
@@ -104,6 +106,38 @@ export class ChainGrpcCrosschainApi extends BaseConsumer {
       throw new Error(e.message);
     }
   }
+
+    /**
+   * Fetches all ready to execute crosschain ack requests
+   * @param pageRequestObject 
+   * @returns 
+   */
+    async fetchReadyToExecuteCrosschainAckRequests(pageRequestObject?: PageRequest.AsObject) {
+      const request = new QueryAllReadyToExecuteCrosschainAckRequestRequest();
+  
+      if (pageRequestObject != null) {
+        let pageRequest = new PageRequest();
+        pageRequest.setKey(pageRequestObject.key)
+        pageRequest.setOffset(pageRequestObject.offset)
+        pageRequest.setLimit(pageRequestObject.offset)
+        pageRequest.setCountTotal(pageRequestObject.countTotal)
+        pageRequest.setReverse(pageRequestObject.reverse)
+        request.setPagination(pageRequest);
+      }
+  
+      try {
+        const response = await this.request<
+        QueryAllReadyToExecuteCrosschainAckRequestRequest,
+        QueryAllReadyToExecuteCrosschainAckRequestResponse,
+          typeof CrosschainQuery.ReadyToExecuteCrosschainAckRequestAll
+        >(request, CrosschainQuery.ReadyToExecuteCrosschainAckRequestAll);
+  
+        return response.toObject();
+      } catch (e) {
+        //@ts-ignore
+        throw new Error(e.message);
+      }
+    }
 
   /**
    * Fetch crosschain request confirmations
