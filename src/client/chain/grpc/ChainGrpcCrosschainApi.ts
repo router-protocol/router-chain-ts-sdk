@@ -14,6 +14,10 @@ import {
   QueryAllCrosschainAckRequestConfirmResponse,
   QueryGetCrosschainRequestConfirmRequest,
   QueryGetCrosschainRequestConfirmResponse,
+  QueryGetReadyToExecuteCrosschainRequestRequest,
+  QueryGetReadyToExecuteCrosschainRequestResponse,
+  QueryGetReadyToExecuteCrosschainAckRequestRequest,
+  QueryGetReadyToExecuteCrosschainAckRequestResponse,
   QueryGetCrosschainAckRequestConfirmRequest,
   QueryGetCrosschainAckRequestConfirmResponse,
   QueryGetCrosschainAckRequestRequest,
@@ -49,7 +53,7 @@ export class ChainGrpcCrosschainApi extends BaseConsumer {
   async fetchCrosschainRequests(pageRequestObject?: PageRequest.AsObject) {
     const request = new QueryAllCrosschainRequestRequest();
 
-     // TODO: refactor to common transform
+    // TODO: refactor to common transform
     if (pageRequestObject != null) {
       let pageRequest = new PageRequest();
       pageRequest.setKey(pageRequestObject.key)
@@ -62,8 +66,8 @@ export class ChainGrpcCrosschainApi extends BaseConsumer {
 
     try {
       const response = await this.request<
-      QueryAllCrosschainRequestRequest,
-      QueryAllCrosschainRequestResponse,
+        QueryAllCrosschainRequestRequest,
+        QueryAllCrosschainRequestResponse,
         typeof CrosschainQuery.CrosschainRequestAll
       >(request, CrosschainQuery.CrosschainRequestAll);
 
@@ -107,37 +111,37 @@ export class ChainGrpcCrosschainApi extends BaseConsumer {
     }
   }
 
-    /**
-   * Fetches all ready to execute crosschain ack requests
-   * @param pageRequestObject 
-   * @returns 
-   */
-    async fetchReadyToExecuteCrosschainAckRequests(pageRequestObject?: PageRequest.AsObject) {
-      const request = new QueryAllReadyToExecuteCrosschainAckRequestRequest();
-  
-      if (pageRequestObject != null) {
-        let pageRequest = new PageRequest();
-        pageRequest.setKey(pageRequestObject.key)
-        pageRequest.setOffset(pageRequestObject.offset)
-        pageRequest.setLimit(pageRequestObject.offset)
-        pageRequest.setCountTotal(pageRequestObject.countTotal)
-        pageRequest.setReverse(pageRequestObject.reverse)
-        request.setPagination(pageRequest);
-      }
-  
-      try {
-        const response = await this.request<
+  /**
+ * Fetches all ready to execute crosschain ack requests
+ * @param pageRequestObject 
+ * @returns 
+ */
+  async fetchReadyToExecuteCrosschainAckRequests(pageRequestObject?: PageRequest.AsObject) {
+    const request = new QueryAllReadyToExecuteCrosschainAckRequestRequest();
+
+    if (pageRequestObject != null) {
+      let pageRequest = new PageRequest();
+      pageRequest.setKey(pageRequestObject.key)
+      pageRequest.setOffset(pageRequestObject.offset)
+      pageRequest.setLimit(pageRequestObject.offset)
+      pageRequest.setCountTotal(pageRequestObject.countTotal)
+      pageRequest.setReverse(pageRequestObject.reverse)
+      request.setPagination(pageRequest);
+    }
+
+    try {
+      const response = await this.request<
         QueryAllReadyToExecuteCrosschainAckRequestRequest,
         QueryAllReadyToExecuteCrosschainAckRequestResponse,
-          typeof CrosschainQuery.ReadyToExecuteCrosschainAckRequestAll
-        >(request, CrosschainQuery.ReadyToExecuteCrosschainAckRequestAll);
-  
-        return response.toObject();
-      } catch (e) {
-        //@ts-ignore
-        throw new Error(e.message);
-      }
+        typeof CrosschainQuery.ReadyToExecuteCrosschainAckRequestAll
+      >(request, CrosschainQuery.ReadyToExecuteCrosschainAckRequestAll);
+
+      return response.toObject();
+    } catch (e) {
+      //@ts-ignore
+      throw new Error(e.message);
     }
+  }
 
   /**
    * Fetch crosschain request confirmations
@@ -155,19 +159,19 @@ export class ChainGrpcCrosschainApi extends BaseConsumer {
 
     // TODO: refactor to common transform
     if (pageRequestObject != null) {
-        let pageRequest = new PageRequest();
-        pageRequest.setKey(pageRequestObject.key)
-        pageRequest.setOffset(pageRequestObject.offset)
-        pageRequest.setLimit(pageRequestObject.offset)
-        pageRequest.setCountTotal(pageRequestObject.countTotal)
-        pageRequest.setReverse(pageRequestObject.reverse)
-        request.setPagination(pageRequest);
+      let pageRequest = new PageRequest();
+      pageRequest.setKey(pageRequestObject.key)
+      pageRequest.setOffset(pageRequestObject.offset)
+      pageRequest.setLimit(pageRequestObject.offset)
+      pageRequest.setCountTotal(pageRequestObject.countTotal)
+      pageRequest.setReverse(pageRequestObject.reverse)
+      request.setPagination(pageRequest);
     }
 
     try {
       const response = await this.request<
-      QueryAllCrosschainRequestConfirmRequest,
-      QueryAllCrosschainRequestConfirmResponse,
+        QueryAllCrosschainRequestConfirmRequest,
+        QueryAllCrosschainRequestConfirmResponse,
         typeof CrosschainQuery.CrosschainRequestConfirmAll
       >(request, CrosschainQuery.CrosschainRequestConfirmAll);
 
@@ -199,8 +203,8 @@ export class ChainGrpcCrosschainApi extends BaseConsumer {
 
     try {
       const response = await this.request<
-      QueryAllCrosschainAckRequestRequest,
-      QueryAllCrosschainAckRequestResponse,
+        QueryAllCrosschainAckRequestRequest,
+        QueryAllCrosschainAckRequestResponse,
         typeof CrosschainQuery.CrosschainAckRequestAll
       >(request, CrosschainQuery.CrosschainAckRequestAll);
 
@@ -227,19 +231,19 @@ export class ChainGrpcCrosschainApi extends BaseConsumer {
 
     // TODO: refactor to common transform
     if (pageRequestObject != null) {
-        let pageRequest = new PageRequest();
-        pageRequest.setKey(pageRequestObject.key)
-        pageRequest.setOffset(pageRequestObject.offset)
-        pageRequest.setLimit(pageRequestObject.offset)
-        pageRequest.setCountTotal(pageRequestObject.countTotal)
-        pageRequest.setReverse(pageRequestObject.reverse)
-        request.setPagination(pageRequest);
+      let pageRequest = new PageRequest();
+      pageRequest.setKey(pageRequestObject.key)
+      pageRequest.setOffset(pageRequestObject.offset)
+      pageRequest.setLimit(pageRequestObject.offset)
+      pageRequest.setCountTotal(pageRequestObject.countTotal)
+      pageRequest.setReverse(pageRequestObject.reverse)
+      request.setPagination(pageRequest);
     }
 
     try {
       const response = await this.request<
-      QueryAllCrosschainAckRequestConfirmRequest,
-      QueryAllCrosschainAckRequestConfirmResponse,
+        QueryAllCrosschainAckRequestConfirmRequest,
+        QueryAllCrosschainAckRequestConfirmResponse,
         typeof CrosschainQuery.CrosschainAckRequestConfirmAll
       >(request, CrosschainQuery.CrosschainAckRequestConfirmAll);
 
@@ -267,8 +271,8 @@ export class ChainGrpcCrosschainApi extends BaseConsumer {
 
     try {
       const response = await this.request<
-      QueryGetCrosschainRequestConfirmRequest,
-      QueryGetCrosschainRequestConfirmResponse,
+        QueryGetCrosschainRequestConfirmRequest,
+        QueryGetCrosschainRequestConfirmResponse,
         typeof CrosschainQuery.CrosschainRequestConfirm
       >(request, CrosschainQuery.CrosschainRequestConfirm);
 
@@ -288,7 +292,7 @@ export class ChainGrpcCrosschainApi extends BaseConsumer {
    * @returns 
    */
   async fetchCrosschainAckRequestConfirmation(sourceChainId: string, requestIdentifier: number, claimHash: Uint8Array | string, orchestrator: string) {
-    const request = new  QueryGetCrosschainAckRequestConfirmRequest();
+    const request = new QueryGetCrosschainAckRequestConfirmRequest();
     request.setAcksrcchainid(sourceChainId);
     request.setAckrequestidentifier(requestIdentifier);
     request.setClaimhash(claimHash);
@@ -296,12 +300,62 @@ export class ChainGrpcCrosschainApi extends BaseConsumer {
 
     try {
       const response = await this.request<
-      QueryGetCrosschainAckRequestConfirmRequest,
-      QueryGetCrosschainAckRequestConfirmResponse,
+        QueryGetCrosschainAckRequestConfirmRequest,
+        QueryGetCrosschainAckRequestConfirmResponse,
         typeof CrosschainQuery.CrosschainAckRequestConfirm
       >(request, CrosschainQuery.CrosschainAckRequestConfirm);
 
       return response.toObject()
+    } catch (e) {
+      //@ts-ignore
+      throw new Error(e.message);
+    }
+  }
+
+   /**
+   * Fetches a ready to execute crosschain requests
+   * @param pageRequestObject 
+   * @returns 
+   */
+   async fetchReadyToExecuteCrosschainRequest(sourceChainId: string, requestIdentifier: number) {
+    const request = new QueryGetReadyToExecuteCrosschainRequestRequest();
+
+    request.setRequestidentifier(requestIdentifier);
+    request.setSourcechainid(sourceChainId);
+
+    try {
+      const response = await this.request<
+      QueryGetReadyToExecuteCrosschainRequestRequest,
+      QueryGetReadyToExecuteCrosschainRequestResponse,
+        typeof CrosschainQuery.ReadyToExecuteCrosschainRequest
+      >(request, CrosschainQuery.ReadyToExecuteCrosschainRequest);
+
+      return response.toObject();
+    } catch (e) {
+      //@ts-ignore
+      throw new Error(e.message);
+    }
+  }
+  
+   /**
+   * Fetches a ready to execute crosschain ack requests
+   * @param pageRequestObject 
+   * @returns 
+   */
+   async fetchReadyToExecuteCrosschainAckRequest(sourceChainId: string, requestIdentifier: number) {
+    const request = new QueryGetReadyToExecuteCrosschainAckRequestRequest();
+
+    request.setAcksrcchainid(sourceChainId);
+    request.setAckrequestidentifier(requestIdentifier);
+
+    try {
+      const response = await this.request<
+      QueryGetReadyToExecuteCrosschainAckRequestRequest,
+      QueryGetReadyToExecuteCrosschainAckRequestResponse,
+        typeof CrosschainQuery.ReadyToExecuteCrosschainAckRequest
+      >(request, CrosschainQuery.ReadyToExecuteCrosschainAckRequest);
+
+      return response.toObject();
     } catch (e) {
       //@ts-ignore
       throw new Error(e.message);
@@ -316,14 +370,14 @@ export class ChainGrpcCrosschainApi extends BaseConsumer {
    * @returns 
    */
   async fetchCrosschainAckRequest(sourceChainId: string, requestIdentifier: number) {
-    const request = new  QueryGetCrosschainAckRequestConfirmRequest();
+    const request = new QueryGetCrosschainAckRequestConfirmRequest();
     request.setAcksrcchainid(sourceChainId);
     request.setAckrequestidentifier(requestIdentifier);
 
     try {
       const response = await this.request<
-      QueryGetCrosschainAckRequestRequest,
-      QueryGetCrosschainAckRequestResponse,
+        QueryGetCrosschainAckRequestRequest,
+        QueryGetCrosschainAckRequestResponse,
         typeof CrosschainQuery.CrosschainAckRequest
       >(request, CrosschainQuery.CrosschainAckRequest);
 
@@ -342,14 +396,14 @@ export class ChainGrpcCrosschainApi extends BaseConsumer {
    * @returns 
    */
   async fetchCrosschainRequest(sourceChainId: string, requestIdentifier: number) {
-    const request = new  QueryGetCrosschainRequestRequest();
+    const request = new QueryGetCrosschainRequestRequest();
     request.setSourcechainid(sourceChainId);
     request.setRequestidentifier(requestIdentifier);
 
     try {
       const response = await this.request<
-      QueryGetCrosschainRequestRequest,
-      QueryGetCrosschainRequestResponse,
+        QueryGetCrosschainRequestRequest,
+        QueryGetCrosschainRequestResponse,
         typeof CrosschainQuery.CrosschainRequest
       >(request, CrosschainQuery.CrosschainRequest);
 
@@ -368,14 +422,14 @@ export class ChainGrpcCrosschainApi extends BaseConsumer {
    * @returns 
    */
   async fetchCrosschainAckReceipt(ackReceiptSrcChainId: string, ackReceiptIdentifier: number) {
-    const request = new  QueryGetCrosschainAckReceiptRequest();
+    const request = new QueryGetCrosschainAckReceiptRequest();
     request.setAckreceiptsrcchainid(ackReceiptSrcChainId);
     request.setAckreceiptidentifier(ackReceiptIdentifier);
 
     try {
       const response = await this.request<
-      QueryGetCrosschainAckReceiptRequest,
-      QueryGetCrosschainAckReceiptResponse,
+        QueryGetCrosschainAckReceiptRequest,
+        QueryGetCrosschainAckReceiptResponse,
         typeof CrosschainQuery.CrosschainAckReceipt
       >(request, CrosschainQuery.CrosschainAckReceipt);
 
