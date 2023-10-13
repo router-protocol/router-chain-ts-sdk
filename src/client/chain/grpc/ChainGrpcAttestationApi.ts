@@ -1,4 +1,4 @@
-import { Query as AttestationQuery } from '@routerprotocol/chain-api/attestation/query_pb_service';
+import { Query as AttestationQuery } from '@routerprotocol/chain-api/routerchain/attestation/query_pb_service';
 import {
   QueryLatestValsetNonceRequest,
   QueryLatestValsetNonceResponse,
@@ -12,7 +12,7 @@ import {
   QueryLastEventNonceResponse,
   QueryListOrchestratorsRequest,
   QueryListOrchestratorsResponse
-} from '@routerprotocol/chain-api/attestation/query_pb';
+} from '@routerprotocol/chain-api/routerchain/attestation/query_pb';
 import BaseConsumer from '../../BaseGrpcConsumer';
 import { ChainGrpcAttestationTransformer } from '../transformers';
 

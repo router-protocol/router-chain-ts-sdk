@@ -1,5 +1,5 @@
-import { ValsetUpdatedClaimHash } from '@routerprotocol/chain-api/attestation/valset_updated_claim_pb';
-import { BridgeValidator } from '@routerprotocol/chain-api/attestation/bridge_validator_pb';
+import { ValsetUpdatedClaimHash } from '@routerprotocol/chain-api/routerchain/attestation/valset_updated_claim_pb';
+import { BridgeValidator } from '@routerprotocol/chain-api/routerchain/attestation/bridge_validator_pb';
 import { getClaimHash } from './util';
 
 export function getValsetUpdatedClaimHash(
@@ -16,6 +16,7 @@ export function getValsetUpdatedClaimHash(
     }
   );
   claimHash.setChainid(claimHashObject.chainid);
+  claimHash.setContract(claimHashObject.contract);
   claimHash.setEventnonce(claimHashObject.eventnonce);
   claimHash.setValsetnonce(claimHashObject.valsetnonce);
   claimHash.setBlockheight(claimHashObject.blockheight);

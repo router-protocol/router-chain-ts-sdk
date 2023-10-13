@@ -160,6 +160,25 @@ export class TxRestClient {
            }
          }
 
+         public async broadcastTxn(
+           txRaw: TxRaw,
+           mode: BroadcastMode = BroadcastMode.Sync
+         ): Promise<SyncTxBroadcastResult> {
+           try {
+             const { tx_response: txResponse } = await this.postRaw<{
+               tx_response: SyncTxBroadcastResult;
+             }>('cosmos/tx/v1beta1/txs', {
+               tx_bytes: TxClient.encode(txRaw),
+               mode,
+             });
+
+             return txResponse;
+           } catch (e) {
+             //@ts-ignore
+             throw new Error(e);
+           }
+         }
+
          public async broadcast(
            tx: TxRaw,
            timeout = 30000

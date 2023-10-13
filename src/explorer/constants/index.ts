@@ -5,4 +5,6 @@ export const gqlApis: KeyValueString = {
   devnet: 'https://www.routerexplorer.com/gql/devnet',
   local: 'http://127.0.0.1:3000/gql/query',
 };
+
+export * from './CrosschainEvents';
 //console.log(`Constants.ts empty right now`);

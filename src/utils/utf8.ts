@@ -15,6 +15,9 @@ export function toBase64(data: Record<string, any>): string {
 export function fromBase64(payload: string): Record<string, any> {
   return JSON.parse(Buffer.from(payload, 'base64').toString());
 }
+export function fromBase64ToString(payload: string): string {
+  return Buffer.from(payload, 'base64').toString();
+}
 
 export const encodeStringToBase64 = (data: string) => {
   if (data.startsWith('0x')) {

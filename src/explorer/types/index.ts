@@ -32,12 +32,47 @@ export interface BlockType {
   total_gas: string;
   block_reward: string;
   processed: number;
+}
+
+export interface BlockTypeWithSignatures {
+  _id: number;
+  hash: string;
+  proposer: string;
+  txn_count: number;
+  timestamp: number;
+  total_gas: string;
+  block_reward: string;
+  processed: number;
+  signatures: {
+    validatorAddress: string;
+    timestamp: number;
+  }[];
+}
+
+export interface BlockTypeWithTxns {
+  _id: number;
+  hash: string;
+  proposer: string;
+  txn_count: number;
+  timestamp: number;
+  total_gas: string;
+  block_reward: string;
+  processed: number;
+  signatures: {
+    validatorAddress: string;
+    timestamp: number;
+  }[];
   transactions: TransactionType[];
 }
 
 export interface PaginatedBlock {
   totalRecords: number;
   blocks: BlockType[];
+}
+
+export interface PaginatedBlockWithSignature {
+  totalRecords: number;
+  blocks: BlockTypeWithSignatures[];
 }
 
 export interface PaginatedTransaction {
@@ -217,4 +252,67 @@ export interface InboundOutboundMapType {
   middlewareContract: string;
   blockHeight: number;
   timestamp: number;
+}
+
+export interface FundPaidType {
+  id: string;
+  srcChainId: string;
+  srcChainType: string;
+  srcTxHash: string;
+  srcTimestamp: number;
+  contract: string;
+  eventNonce: number;
+  blockHeight: number;
+  messageHash: string;
+  forwarder: string;
+  forwarderRouterAddr: string;
+  execResponse: string;
+  errorResponse: string;
+  eventHistory: EventHistory[];
+  historyStatus: HistoryStatusType[];
+  eventSignatures: EventSignatureType[];
+  status: string;
+  createdAt: number;
+  updatedAt: number;
+}
+
+export interface PaginatedFundPaid {
+  totalRecords: number;
+  fundPaid: FundPaidType[];
+}
+
+export interface FundDepositType {
+  id: string;
+  srcChainId: string;
+  srcChainType: string;
+  srcTxHash: string;
+  srcTimestamp: number;
+  contract: string;
+  depositId: number;
+  blockHeight: number;
+  destChainId: string;
+  amount: number;
+  relayerFees: string;
+  srcToken: string;
+  recipient: string;
+  depositor: string;
+  execResponse: string;
+  errorResponse: string;
+  eventHistory: EventHistory[];
+  historyStatus: HistoryStatusType[];
+  eventSignatures: EventSignatureType[];
+  status: string;
+  createdAt: number;
+  updatedAt: number;
+}
+
+export interface PaginatedFundDeposit {
+  totalRecords: number;
+  fundDeposit: FundDepositType[];
+}
+
+export interface ValidatorUptime {
+  operatorAddress: string;
+  consensusAddress: string;
+  upTime: string;
 }
