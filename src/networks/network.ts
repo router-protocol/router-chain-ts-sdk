@@ -77,7 +77,7 @@ const ETH_CHAINID: Record<Network, EthereumChainId> = {
   [Network.Docker]: EthereumChainId.Goerli,
   [Network.AlphaDevnet]: EthereumChainId.AlphaDevnetEvm,
   [Network.InternalDevnet]: EthereumChainId.InternalDevnet,
-  [Network.LoadTest]: EthereumChainId.TestnetEvm,
+  [Network.LoadTest]: EthereumChainId.LoadTest,
 };
 
 /**
