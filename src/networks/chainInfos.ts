@@ -13,10 +13,10 @@ export const testnetChainInfo: ChainInfo = {
 };
 
 export const loadTestChainInfo: ChainInfo = {
-  feeDenom: 'route',
-  chainId: 'router_9601-1',
-  env: 'load-test',
-};
+         feeDenom: 'route',
+         chainId: 'router_9604-1',
+         env: 'load-test',
+       };
 
 export const devnetChainInfo: ChainInfo = {
   feeDenom: 'route',

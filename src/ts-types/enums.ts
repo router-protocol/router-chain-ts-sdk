@@ -12,6 +12,7 @@ export enum EthereumChainId {
   MainnetEvm = 9600,
   InternalDevnet = 9000,
   LocalEvm = 9604,
+  LoadTest = 9604,
 }
 
 export enum ChainId {

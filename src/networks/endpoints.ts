@@ -18,12 +18,14 @@ export const urlEndpointsTestnet: NetworkEndpoints = {
        };
 
 export const urlEndpointsLoadtest: NetworkEndpoints = {
-         explorerGql: 'http://52.66.245.51:3000/gql/query',
-         explorerGqlWs: 'ws://52.66.245.51:3000/gql/query',
-         lcdEndpoint: 'http://3.110.53.116:1317',
-         grpcEndpoint: 'http://3.110.53.116:9090',
-         tmEndpoint: 'http://3.110.53.116:26657',
-         rpcEndpoint: 'http://3.110.53.116:8545',
+         explorerGql:
+           'https://loadtest-explorer-alpha.routerchain.dev/gql/query',
+         explorerGqlWs:
+           'ws://loadtest-explorer-alpha.routerchain.dev/gql/query',
+         lcdEndpoint: 'https://perf.lcd.routerchain.dev',
+         grpcEndpoint: 'https://perf.grpcweb.routerchain.dev',
+         tmEndpoint: 'https://perf.tm.routerchain.dev',
+         rpcEndpoint: 'https://perf.evm.rpc.routerchain.dev',
        };
 
 export const urlEndpointsTestnetEu: NetworkEndpoints = {
