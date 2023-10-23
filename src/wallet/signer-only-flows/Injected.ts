@@ -122,6 +122,9 @@ export const executeQueryInjected = async ({
       [new Uint8Array(2)]
     );
     const simulationResponse = await simulateRawTx(simulatedTx, nodeUrl);
+    if (!simulationResponse.hasOwnProperty('gas_info')) {
+      throw new Error(simulationResponse.message);
+    }
     const simulatedFee = {
       amount: [
         {
@@ -220,6 +223,8 @@ export const sendEthTxnToRouterChain = async ({
     memo: memo ?? '',
   };
 
+  console.log('Context =>', context);
+
   //EIP DATA
   const eipData: {
     msgs: Msgs | Msgs[];
@@ -238,6 +243,8 @@ export const sendEthTxnToRouterChain = async ({
       feePayer: getRouterSignerAddress(ethereumAddress),
     },
   };
+
+  console.log('eipData =>', eipData);
   // Simulationx
   const simulatedTxPayload = getEtherMintTxPayload(context, eipData);
   const simulatedTx = createTxRawForBroadcast(
@@ -246,6 +253,9 @@ export const sendEthTxnToRouterChain = async ({
     [new Uint8Array(2)]
   );
   const simulationResponse = await simulateRawTx(simulatedTx, nodeUrl);
+  if (!simulationResponse.hasOwnProperty('gas_info')) {
+    throw new Error(simulationResponse.message);
+  }
   const simulatedFee = {
     amount: [
       {

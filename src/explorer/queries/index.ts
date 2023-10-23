@@ -7,20 +7,23 @@ export const latestBlockQuery = `query getLatestBlocks($limit: Int!, $timeRange:
       proposer
       txn_count
       timestamp
-      transactions{
-         _id
-        height
-        sender
-        status
-        receiver
-        timestamp
-        gasWanted
-        gasUsed
-        fee
-        event_logs
-        success
-        routePrice
-      }
+    }
+  }
+}
+`;
+export const latestBlockQueryWithSignatures = `query getLatestBlocks($limit: Int!, $timeRange:[Int],$offset: Int!){
+  paginatedBlock(sortBy:{_id:desc},filter:{timestamp:{range:$timeRange}},limit:$limit,offset:$offset){
+    totalRecords
+    blocks{
+      _id
+      hash
+      proposer
+      txn_count
+      timestamp
+      signatures{
+      validatorAddress
+      timestamp
+    }
     }
   }
 }
@@ -34,6 +37,10 @@ export const specificBlockQuery = `
     proposer
     txn_count
     timestamp
+    signatures{
+      validatorAddress
+      timestamp
+    }
     transactions{
          _id
         height
@@ -46,6 +53,7 @@ export const specificBlockQuery = `
         fee
         event_logs
         success
+        rawLog
         routePrice
     }
   }
@@ -53,7 +61,7 @@ export const specificBlockQuery = `
 `;
 export const latestTransactionsQuery = `
   query getLatestTransactions($timeRange:[Int], $limit: Int!, $offset: Int!){
-    paginatedTransaction(filter:{timestamp:{range:$timeRange}},sortBy:{height:desc,timestamp:desc},limit:$limit,offset:$offset){
+    paginatedTransaction(filter:{timestamp:{range:$timeRange}},sortBy:{height:desc},limit:$limit,offset:$offset){
     totalRecords
   transactions{
      _id
@@ -76,7 +84,7 @@ export const latestTransactionsQuery = `
 
 export const latestTransactionsOfAddressQuery = `
   query getLatestTransactions($timeRange:[Int], $address: String!,$limit: Int!, $offset: Int!){
-   paginatedTransaction(filter:{timestamp:{range:$timeRange}}, where_or:{sender:$address, receiver:$address}, sortBy:{height:desc,timestamp:desc}, limit:$limit, offset:$offset){
+   paginatedTransaction(filter:{timestamp:{range:$timeRange}}, where_or:{sender:$address, receiver:$address}, limit:$limit, offset:$offset){
     totalRecords
     transactions{
       _id
@@ -119,7 +127,7 @@ export const specificTransactionQuery = `
 
 export const latestCrosschainsQuery = `
   query getLatestCrosschains($timeRange:[Int], $limit: Int!, $offset: Int!){
-    paginatedCrosschain(filter:{updatedAt:{range:$timeRange}}, sortBy:{createdAt:desc}, limit:$limit, offset:$offset){
+    paginatedCrosschain(filter:{createdAt:{range:$timeRange}}, sortBy:{createdAt:desc}, limit:$limit, offset:$offset){
     totalRecords
     crosschains{
       id
@@ -454,8 +462,8 @@ export const specificCrosschainQuery = `
 }
 `;
 export const searchSpecificCrosschainQuery = `
-  query getCrosschainByFormAttestationId($timeRange:[Int], $searchTerm: String! ,$limit: Int!, $offset: Int!){
-  paginatedCrosschain(filter:{createdAt:{range:$timeRange}},where_or:{sourceTxHash:$searchTerm, srcTxOrigin:$searchTerm, requestSender:$searchTerm},sortBy:{createdAt:desc},limit:$limit,offset:$offset){
+  query getCrosschainByFormAttestationId($timeRange:[Int], $searchTerm: String! , $handlerAddress: String!, $limit: Int!, $offset: Int!){
+  paginatedCrosschain(filter:{createdAt:{range:$timeRange}},where_or:{sourceTxHash:$searchTerm, srcTxOrigin:$searchTerm, requestSender:$searchTerm},handlerAddress:$handlerAddress,sortBy:{createdAt:desc},limit:$limit,offset:$offset){
     totalRecords
     crosschains{
       id
@@ -624,8 +632,8 @@ export const searchSpecificCrosschainQuery = `
 `;
 
 export const searchSpecificCrosschainSrcChainIdQuery = `
-  query getCrosschainByFormAttestationId($timeRange:[Int],$sourceChainIds: [String],$searchTerm: String! ,$limit: Int!, $offset: Int!){
-  paginatedCrosschain(filter:{srcChainId:{in:$sourceChainIds}, createdAt:{range:$timeRange}},where_or:{sourceTxHash:$searchTerm, srcTxOrigin:$searchTerm, requestSender:$searchTerm},sortBy:{createdAt:desc},limit:$limit,offset:$offset){
+  query getCrosschainByFormAttestationId($timeRange:[Int],$sourceChainIds: [String],$handlerAddress: String!,$searchTerm: String! ,$limit: Int!, $offset: Int!){
+  paginatedCrosschain(filter:{srcChainId:{in:$sourceChainIds}, createdAt:{range:$timeRange}},where_or:{sourceTxHash:$searchTerm, srcTxOrigin:$searchTerm, requestSender:$searchTerm},handlerAddress:$handlerAddress,sortBy:{createdAt:desc},limit:$limit,offset:$offset){
     totalRecords
     crosschains{
       id
@@ -794,8 +802,8 @@ export const searchSpecificCrosschainSrcChainIdQuery = `
 `;
 
 export const searchSpecificCrosschainDestChainIdQuery = `
-  query getCrosschainByFormAttestationId($timeRange:[Int],$destinationChainIds: [String],$searchTerm: String! ,$limit: Int!, $offset: Int!){
-  paginatedCrosschain(filter:{destChainId:{in:$destinationChainIds},createdAt:{range:$timeRange}},where_or:{sourceTxHash:$searchTerm, srcTxOrigin:$searchTerm, requestSender:$searchTerm},sortBy:{createdAt:desc},limit:$limit,offset:$offset){
+  query getCrosschainByFormAttestationId($timeRange:[Int],$destinationChainIds: [String],$searchTerm: String! , $handlerAddress: String!,$limit: Int!, $offset: Int!){
+  paginatedCrosschain(filter:{destChainId:{in:$destinationChainIds},createdAt:{range:$timeRange}},where_or:{sourceTxHash:$searchTerm, srcTxOrigin:$searchTerm, requestSender:$searchTerm},handlerAddress:$handlerAddress,sortBy:{createdAt:desc},limit:$limit,offset:$offset){
     totalRecords
     crosschains{
      id
@@ -964,8 +972,8 @@ export const searchSpecificCrosschainDestChainIdQuery = `
 `;
 
 export const searchSpecificCrosschainChainIdQuery = `
-  query getCrosschainByFormAttestationId($timeRange:[Int], $sourceChainIds: [String],$destinationChainIds: [String],$searchTerm: String! ,$limit: Int!, $offset: Int!){
-  paginatedCrosschain(filter:{srcChainId:{in:$sourceChainIds},destChainId:{in:$destinationChainIds}, createdAt:{range:$timeRange}},where_or:{sourceTxHash:$searchTerm, srcTxOrigin:$searchTerm, requestSender:$searchTerm},sortBy:{createdAt:desc},limit:$limit,offset:$offset){
+  query getCrosschainByFormAttestationId($timeRange:[Int], $sourceChainIds: [String],$destinationChainIds: [String],$searchTerm: String! , $handlerAddress: String!,$limit: Int!, $offset: Int!){
+  paginatedCrosschain(filter:{srcChainId:{in:$sourceChainIds},destChainId:{in:$destinationChainIds}, createdAt:{range:$timeRange}},where_or:{sourceTxHash:$searchTerm, srcTxOrigin:$searchTerm, requestSender:$searchTerm},handlerAddress:$handlerAddress,sortBy:{createdAt:desc},limit:$limit,offset:$offset){
     totalRecords
     crosschains{
       id
@@ -1144,6 +1152,484 @@ query findOutboundsToInbound($middlewareContract:String!,$inboundId:String!){
     middlewareContract
     blockHeight
     timestamp
+  }
+}
+`;
+
+export const latestFundPaidQuery = `
+  query getLatestFundPaid($timeRange:[Int], $limit: Int!, $offset: Int!){
+    paginatedFundPaid(filter:{createdAt:{range:$timeRange}}, sortBy:{createdAt:desc}, limit:$limit, offset:$offset){
+    totalRecords
+    fundPaid{
+      id
+			srcChainId
+      srcChainType
+      srcTxHash
+      srcTimestamp
+      contract
+      eventNonce
+      blockHeight
+      messageHash
+      forwarder
+      forwarderRouterAddr
+      execResponse
+      errorResponse
+       eventHistory{
+        name
+        height
+        timestamp
+        txnHash
+        height
+      }
+      historyStatus{
+        status
+        txnHash
+        timestamp
+      }
+      eventSignatures{
+        validator
+        txnHash
+        timestamp
+        blockHeight
+        signature
+        ethSigner
+      }
+      status
+      createdAt
+      updatedAt
+    }
+  }
+}
+`;
+
+export const specificFundPaidQuery = `
+  query getFundPaidById($id:String!){
+  fundPaid(id:$id){
+      id
+			srcChainId
+      srcChainType
+      srcTxHash
+      srcTimestamp
+      contract
+      eventNonce
+      blockHeight
+      messageHash
+      forwarder
+      forwarderRouterAddr
+      execResponse
+      errorResponse
+       eventHistory{
+        name
+        height
+        timestamp
+        txnHash
+        height
+      }
+      historyStatus{
+        status
+        txnHash
+        timestamp
+      }
+      eventSignatures{
+        validator
+        txnHash
+        timestamp
+        blockHeight
+        signature
+        ethSigner
+      }
+      status
+      createdAt
+      updatedAt
+    }
+}
+`;
+export const searchSpecificFundPaidQuery = `
+  query getFundPaidBySearch($timeRange:[Int], $searchTerm: String! ,$limit: Int!, $offset: Int!){
+  paginatedFundPaid(filter:{createdAt:{range:$timeRange}},where_or:{srcTxHash:$searchTerm, contract:$searchTerm, messageHash:$searchTerm, forwarder:$searchTerm, forwarderRouterAddr:$searchTerm},sortBy:{createdAt:desc},limit:$limit,offset:$offset){
+    totalRecords
+    fundPaid{
+      id
+			srcChainId
+      srcChainType
+      srcTxHash
+      srcTimestamp
+      contract
+      eventNonce
+      blockHeight
+      messageHash
+      forwarder
+      forwarderRouterAddr
+      execResponse
+      errorResponse
+       eventHistory{
+        name
+        height
+        timestamp
+        txnHash
+        height
+      }
+      historyStatus{
+        status
+        txnHash
+        timestamp
+      }
+      eventSignatures{
+        validator
+        txnHash
+        timestamp
+        blockHeight
+        signature
+        ethSigner
+      }
+      status
+      createdAt
+      updatedAt
+    }
+`;
+
+export const searchSpecificFundPaidSrcChainIdQuery = `
+  query getCrosschainBySearch($timeRange:[Int],$sourceChainIds: [String],$searchTerm: String! ,$limit: Int!, $offset: Int!){
+  paginatedFundPaid(filter:{srcChainId:{in:$sourceChainIds}, createdAt:{range:$timeRange}},where_or:{srcTxHash:$searchTerm, contract:$searchTerm, messageHash:$searchTerm, forwarder:$searchTerm, forwarderRouterAddr:$searchTerm},sortBy:{createdAt:desc},limit:$limit,offset:$offset){
+    totalRecords
+    fundPaid{
+      id
+			srcChainId
+      srcChainType
+      srcTxHash
+      srcTimestamp
+      contract
+      eventNonce
+      blockHeight
+      messageHash
+      forwarder
+      forwarderRouterAddr
+      execResponse
+      errorResponse
+       eventHistory{
+        name
+        height
+        timestamp
+        txnHash
+        height
+      }
+      historyStatus{
+        status
+        txnHash
+        timestamp
+      }
+      eventSignatures{
+        validator
+        txnHash
+        timestamp
+        blockHeight
+        signature
+        ethSigner
+      }
+      status
+      createdAt
+      updatedAt
+    }
+  }
+}
+`;
+
+export const latestFundDepositQuery = `
+  query getLatestFundDeposit($timeRange:[Int], $limit: Int!, $offset: Int!){
+    paginatedFundDeposit(filter:{createdAt:{range:$timeRange}}, sortBy:{createdAt:desc}, limit:$limit, offset:$offset){
+    totalRecords
+    fundDeposit{
+      id
+			srcChainId
+      srcChainType
+      srcTxHash
+      srcTimestamp
+      contract
+      depositId
+      blockHeight
+      destChainId
+      amount
+      relayerFees
+			srcToken
+			recipient
+			depositor
+      execResponse
+      errorResponse
+       eventHistory{
+        name
+        height
+        timestamp
+        txnHash
+        height
+      }
+      historyStatus{
+        status
+        txnHash
+        timestamp
+      }
+      eventSignatures{
+        validator
+        txnHash
+        timestamp
+        blockHeight
+        signature
+        ethSigner
+      }
+      status
+      createdAt
+      updatedAt
+    }
+  }
+}
+`;
+
+export const specificFundDepositQuery = `
+  query getFundDepositById($id:String!){
+  fundDeposit(id:$id){
+      id
+			srcChainId
+      srcChainType
+      srcTxHash
+      srcTimestamp
+      contract
+      depositId
+      blockHeight
+      destChainId
+      amount
+      relayerFees
+			srcToken
+			recipient
+			depositor
+      execResponse
+      errorResponse
+       eventHistory{
+        name
+        height
+        timestamp
+        txnHash
+        height
+      }
+      historyStatus{
+        status
+        txnHash
+        timestamp
+      }
+      eventSignatures{
+        validator
+        txnHash
+        timestamp
+        blockHeight
+        signature
+        ethSigner
+      }
+      status
+      createdAt
+      updatedAt
+    }
+}
+`;
+export const searchSpecificFundDepositQuery = `
+  query getFundPaidBySearch($timeRange:[Int], $searchTerm: String! ,$limit: Int!, $offset: Int!){
+  paginatedFundDeposit(filter:{createdAt:{range:$timeRange}},where_or:{srcTxHash:$searchTerm, contract:$searchTerm, srcToken:$searchTerm, recipient:$searchTerm, depositor:$searchTerm},sortBy:{createdAt:desc},limit:$limit,offset:$offset){
+    totalRecords
+    fundDeposit{
+      id
+			srcChainId
+      srcChainType
+      srcTxHash
+      srcTimestamp
+      contract
+      depositId
+      blockHeight
+      destChainId
+      amount
+      relayerFees
+			srcToken
+			recipient
+			depositor
+      execResponse
+      errorResponse
+       eventHistory{
+        name
+        height
+        timestamp
+        txnHash
+        height
+      }
+      historyStatus{
+        status
+        txnHash
+        timestamp
+      }
+      eventSignatures{
+        validator
+        txnHash
+        timestamp
+        blockHeight
+        signature
+        ethSigner
+      }
+      status
+      createdAt
+      updatedAt
+    }
+  }
+}
+`;
+
+export const searchSpecificFundDepositSrcChainIdQuery = `
+  query getCrosschainBySearch($timeRange:[Int],$sourceChainIds: [String],$searchTerm: String! ,$limit: Int!, $offset: Int!){
+  paginatedFundDeposit(filter:{srcChainId:{in:$sourceChainIds}, createdAt:{range:$timeRange}},where_or:{srcTxHash:$searchTerm, contract:$searchTerm, srcToken:$searchTerm, recipient:$searchTerm, depositor:$searchTerm},sortBy:{createdAt:desc},limit:$limit,offset:$offset){
+    totalRecords
+    fundDeposit{
+      id
+			srcChainId
+      srcChainType
+      srcTxHash
+      srcTimestamp
+      contract
+      depositId
+      blockHeight
+      destChainId
+      amount
+      relayerFees
+			srcToken
+			recipient
+			depositor
+      execResponse
+      errorResponse
+       eventHistory{
+        name
+        height
+        timestamp
+        txnHash
+        height
+      }
+      historyStatus{
+        status
+        txnHash
+        timestamp
+      }
+      eventSignatures{
+        validator
+        txnHash
+        timestamp
+        blockHeight
+        signature
+        ethSigner
+      }
+      status
+      createdAt
+      updatedAt
+    }
+  }
+}
+`;
+
+export const searchSpecificFundDepositDestChainIdQuery = `
+ query getCrosschainBySearch($timeRange:[Int],$destinationChainIds: [String],$searchTerm: String! ,$limit: Int!, $offset: Int!){
+  paginatedFundDeposit(filter:{destChainId:{in:$destinationChainIds}, createdAt:{range:$timeRange}},where_or:{srcTxHash:$searchTerm, contract:$searchTerm, srcToken:$searchTerm, recipient:$searchTerm, depositor:$searchTerm},sortBy:{createdAt:desc},limit:$limit,offset:$offset){
+    totalRecords
+    fundDeposit{
+      id
+			srcChainId
+      srcChainType
+      srcTxHash
+      srcTimestamp
+      contract
+      depositId
+      blockHeight
+      destChainId
+      amount
+      relayerFees
+			srcToken
+			recipient
+			depositor
+      execResponse
+      errorResponse
+       eventHistory{
+        name
+        height
+        timestamp
+        txnHash
+        height
+      }
+      historyStatus{
+        status
+        txnHash
+        timestamp
+      }
+      eventSignatures{
+        validator
+        txnHash
+        timestamp
+        blockHeight
+        signature
+        ethSigner
+      }
+      status
+      createdAt
+      updatedAt
+    }
+  }
+}
+`;
+
+export const searchSpecificFundDepositChainIdQuery = `
+ query getCrosschainBySearch($timeRange:[Int],$sourceChainIds:[String],$destinationChainIds: [String],$searchTerm: String! ,$limit: Int!, $offset: Int!){
+  paginatedFundDeposit(filter:{srcChainId:{in:$sourceChainIds}, destChainId:{in:$destinationChainIds}, createdAt:{range:$timeRange}},where_or:{srcTxHash:$searchTerm, contract:$searchTerm, srcToken:$searchTerm, recipient:$searchTerm, depositor:$searchTerm},sortBy:{createdAt:desc},limit:$limit,offset:$offset){
+    totalRecords
+    fundDeposit{
+      id
+			srcChainId
+      srcChainType
+      srcTxHash
+      srcTimestamp
+      contract
+      depositId
+      blockHeight
+      destChainId
+      amount
+      relayerFees
+			srcToken
+			recipient
+			depositor
+      execResponse
+      errorResponse
+       eventHistory{
+        name
+        height
+        timestamp
+        txnHash
+        height
+      }
+      historyStatus{
+        status
+        txnHash
+        timestamp
+      }
+      eventSignatures{
+        validator
+        txnHash
+        timestamp
+        blockHeight
+        signature
+        ethSigner
+      }
+      status
+      createdAt
+      updatedAt
+    }
+  }
+}
+`;
+
+export const validatorsUptimeQuery = `
+query getValidatorsUptime{
+  validators{
+    operatorAddress
+    consensusAddress
+    upTime
   }
 }
 `;

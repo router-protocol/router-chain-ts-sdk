@@ -1,4 +1,4 @@
-import { Query as MultiChainQuery } from '@routerprotocol/chain-api/multichain/query_pb_service';
+import { Query as MultiChainQuery } from '@routerprotocol/chain-api/routerchain/multichain/query_pb_service';
 import {
   QueryAllChainConfigRequest,
   QueryAllChainConfigResponse,
@@ -6,9 +6,9 @@ import {
   QueryGetChainConfigResponse,
   QueryAllContractConfigRequest,
   QueryAllContractConfigResponse,
-  QueryGetContractConfigRequest,
-  QueryGetContractConfigResponse
-} from '@routerprotocol/chain-api/multichain/query_pb';
+  QueryAllContractConfigByChainIdRequest,
+  QueryAllContractConfigByChainIdResponse,
+} from '@routerprotocol/chain-api/routerchain/multichain/query_pb';
 import BaseConsumer from '../../BaseGrpcConsumer';
 
 /**
@@ -76,15 +76,15 @@ export class ChainGrpcMultiChainApi extends BaseConsumer {
    * @returns 
    */
   async fetchContractConfig(chainId: string) {
-    const request = new QueryGetContractConfigRequest();
+    const request = new QueryAllContractConfigByChainIdRequest();
     request.setChainId(chainId);
 
     try {
       const response = await this.request<
-      QueryGetContractConfigRequest,
-      QueryGetContractConfigResponse,
-        typeof MultiChainQuery.ContractConfig
-      >(request, MultiChainQuery.ContractConfig);
+      QueryAllContractConfigByChainIdRequest,
+      QueryAllContractConfigByChainIdResponse,
+        typeof MultiChainQuery.ContractConfigByChainId
+      >(request, MultiChainQuery.ContractConfigByChainId);
 
       return response.toObject();
     } catch (e) {

@@ -577,10 +577,10 @@ const restClient = new TxRestClient(
 const tx = await executeQueryInjected({
   networkEnv: Network.Testnet,
   contractAddress: 'router10390.......',
-  executeMsg: { query: 'xyz' },
+  executeMsg: yourQueryJSON,
   nodeUrl: getEndpointsForNetwork(Network.Testnet).lcdEndpoint,
   ethereumAddress: window.ethereum.selectedAddress,
-  metmaskSigner: window.ethereum,
+  injectedSigner: window.ethereum,
 });
 const txHash = tx.tx_response.txhash;
 const txResponse = await restClient.waitTxBroadcast(txHash);
