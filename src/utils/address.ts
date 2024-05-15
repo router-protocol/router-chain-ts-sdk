@@ -1,5 +1,6 @@
 import { bech32 } from 'bech32';
 import { Address } from 'ethereumjs-util';
+import { BECH32_ADDR_VAL_PREFIX } from './constants';
 
 export const ROUTER_CHAIN_PREFIX = 'router';
 
@@ -33,4 +34,9 @@ export const isValidAddress = (address: string) => {
 export const validatorToDelegatorAddress = (address: string) => {
   const decode = bech32.decode(address).words;
   return bech32.encode(CURRENT_CHAIN_PREFIX, decode);
+};
+
+export const delegatorToValidatorAddress = (address: string) => {
+  const decode = bech32.decode(address).words;
+  return bech32.encode(BECH32_ADDR_VAL_PREFIX, decode);
 };

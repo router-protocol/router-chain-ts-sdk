@@ -19,6 +19,8 @@ const MsgEditValidator = '/cosmos.authz.v1beta1.MsgEditValidator';
 const MsgUndelegate = '/cosmos.authz.v1beta1.MsgUndelegate';
 const MsgApproveFeepayerRequest =
   '/routerprotocol.routerchain.metastore.MsgApproveFeepayerRequest';
+const MsgRevokeFeepayerRequest =
+  '/routerprotocol.routerchain.metastore.MsgRevokeFeepayerRequest';
 const MsgCreateMetadataRequest =
   '/routerprotocol.routerchain.metastore.MsgCreateMetadataRequest';
 const MsgCwStoreCode = '/routerprotocol.routerchain.rwasm.MsgCwStoreCode';
@@ -83,6 +85,7 @@ const ActionTxType = {
   [MsgEditValidator.toLowerCase()]: 'Edit Validator',
   [MsgUndelegate.toLowerCase()]: 'Undelegate',
   [MsgApproveFeepayerRequest.toLowerCase()]: 'Approve Fee Payer',
+  [MsgRevokeFeepayerRequest.toLowerCase()]: 'Revoke Fee Payer',
   [MsgCreateMetadataRequest.toLowerCase()]: 'Create Metadata Request',
   [MsgCwStoreCode.toLowerCase()]: 'Store Code',
   [MsgUpdateAdmin.toLowerCase()]: 'Update Admin',
@@ -140,6 +143,9 @@ export const getTransactionTypes = (rawLog: RawLog[]) => {
             const txType = ActionTxType[attribute.value.toLowerCase()];
             if (txType) {
               txTypes.push(txType);
+            } else {
+              const strArry = attribute.value.split('.');
+              txTypes.push(strArry[strArry.length - 1]);
             }
           } catch (e) {
             console.log('getTransactionTypes error =>', e);
