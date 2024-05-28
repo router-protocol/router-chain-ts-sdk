@@ -9,7 +9,7 @@ export declare namespace MsgExecuteContract {
     funds?: {
       denom: string;
       amount: string;
-    };
+    }[];
     action: string;
     sender: string;
     contractAddress: string;
@@ -60,13 +60,15 @@ export default class MsgExecuteContract extends MsgBase<
     message.setSender(params.sender);
     message.setContract(params.contractAddress);
 
-    if (params.funds) {
-      const funds = new Coin();
-
-      funds.setAmount(params.funds.amount);
-      funds.setDenom(params.funds.denom);
-
-      message.setFundsList([funds]);
+    if (params.funds && params.funds.length > 0) {
+      const funds: Coin[] = [];
+      params.funds.forEach(_fund => {
+        const fund = new Coin();
+        fund.setAmount(_fund.amount);
+        fund.setDenom(_fund.denom);
+        funds.push(fund);
+      });
+      message.setFundsList(funds);
     }
 
     return message;

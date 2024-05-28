@@ -7,10 +7,10 @@ export const mainnetChainInfo: ChainInfo = {
 };
 
 export const testnetChainInfo: ChainInfo = {
-  feeDenom: 'route',
-  chainId: 'router_9601-1',
-  env: 'testnet',
-};
+         feeDenom: 'route',
+         chainId: 'router_9607-1',
+         env: 'testnet',
+       };
 
 export const loadTestChainInfo: ChainInfo = {
          feeDenom: 'route',
@@ -44,7 +44,7 @@ export const internalDevnetChainInfo: ChainInfo = {
 
 export const alphaDevnetChainInfo: ChainInfo = {
          feeDenom: 'route',
-         chainId: 'router_9605-1',
+         chainId: 'router_9625-1',
          env: 'alpha-devnet',
        };
 

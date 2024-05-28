@@ -8,6 +8,7 @@ import MsgTransfer from './ibc/msgs/MsgTransfer';
 import MsgDelegate from './staking/msgs/MsgDelegate';
 import MsgUndelegate from './staking/msgs/MsgUndelegate';
 import MsgBeginRedelegate from './staking/msgs/MsgBeginRedelegate';
+import MsgUnjail from './slashing/msgs/MsgUnjail';
 import { MsgSubmitProposal } from './gov';
 import {
   MsgExecuteContract,
@@ -17,7 +18,10 @@ import {
   MsgMigrateContract,
 } from './wasm';
 import { MsgWithdrawDelegatorReward } from './distribution';
-import { MsgApproveFeepayerRequest } from './metastore';
+import {
+  MsgApproveFeepayerRequest,
+  MsgRevokeFeepayerRequest,
+} from './metastore';
 import {
   MsgCwStoreCode,
   MsgExecuteCwContract,
@@ -50,5 +54,7 @@ export type Msgs =
   | MsgUpdateAdmin
   | MsgMigrateContract
   | MsgMigrateCwContract
-  | MsgApproveFeepayerRequest;
+  | MsgApproveFeepayerRequest
+  | MsgRevokeFeepayerRequest
+  | MsgUnjail;
 

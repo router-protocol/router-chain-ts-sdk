@@ -9,3 +9,4 @@ export * from './eip712';
 export * from './wasm';
 export * from './metastore';
 export * from './rwasm';
+export * from './slashing';
