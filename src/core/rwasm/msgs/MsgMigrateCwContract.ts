@@ -1,4 +1,4 @@
-import { MsgMigrateCwContract as BaseMsgMigrateCwContract } from '@routerprotocol/chain-api/routerchain/rwasm/tx_pb';
+import { MsgMigrateCwContract as BaseMsgMigrateCwContract } from '@routerprotocol/chain-api/routerprotocol/routerchain/rwasm/tx_pb';
 import { MsgBase } from '../../MsgBase';
 import snakeCaseKeys from 'snakecase-keys';
 

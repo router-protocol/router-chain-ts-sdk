@@ -78,8 +78,8 @@ import {
   QueryGetValidCrosschainAckRequestResponse,
   QueryGetValidCrosschainRequestRequest,
   QueryGetValidCrosschainRequestResponse
-} from '@routerprotocol/chain-api/routerchain/crosschain/query_pb';
-import { Query as CrosschainQuery } from '@routerprotocol/chain-api/routerchain/crosschain/query_pb_service';
+} from '@routerprotocol/chain-api/routerprotocol/routerchain/crosschain/query_pb';
+import { Query as CrosschainQuery } from '@routerprotocol/chain-api/routerprotocol/routerchain/crosschain/query_pb_service';
 import BaseConsumer from '../../BaseGrpcConsumer';
 
 /**
