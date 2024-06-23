@@ -1,11 +1,11 @@
-import { Query as MetastoreQuery } from '@routerprotocol/chain-api/routerchain/metastore/query_pb_service';
+import { Query as MetastoreQuery } from '@routerprotocol/chain-api/routerprotocol/routerchain/metastore/query_pb_service';
 
 import {
-    QueryAllMetaInfoRequest,
-    QueryAllMetaInfoResponse,
-    QueryAllMetaInfoResponseByChainAndAddress,
-    QueryAllMetaInfoRequestByChainAndAddress
-} from '@routerprotocol/chain-api/routerchain/metastore/query_pb';
+  QueryAllMetaInfoRequest,
+  QueryAllMetaInfoResponse,
+  QueryAllMetaInfoResponseByChainAndAddress,
+  QueryAllMetaInfoRequestByChainAndAddress
+} from '@routerprotocol/chain-api/routerprotocol/routerchain/metastore/query_pb';
 import BaseConsumer from '../../BaseGrpcConsumer';
 
 
@@ -16,8 +16,8 @@ export class ChainGrpcMetastoreApi extends BaseConsumer {
 
     try {
       const response = await this.request<
-      QueryAllMetaInfoRequest,
-      QueryAllMetaInfoResponse,
+        QueryAllMetaInfoRequest,
+        QueryAllMetaInfoResponse,
         typeof MetastoreQuery.MetaInfoAll
       >(request, MetastoreQuery.MetaInfoAll);
 

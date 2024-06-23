@@ -1,4 +1,4 @@
-import { MsgExecuteCwContract as BaseMsgExecuteCwContract } from '@routerprotocol/chain-api/routerchain/rwasm/tx_pb';
+import { MsgExecuteCwContract as BaseMsgExecuteCwContract } from '@routerprotocol/chain-api/routerprotocol/routerchain/rwasm/tx_pb';
 import snakeCaseKeys from 'snakecase-keys';
 //import { toUtf8 } from '../../../utils';
 import { MsgBase } from '../../MsgBase';
@@ -6,14 +6,14 @@ import { MsgBase } from '../../MsgBase';
 export declare namespace MsgExecuteCwContract {
   export interface Params {
     funds?:
-      | {
-          denom: string;
-          amount: string;
-        }
-      | {
-          denom: string;
-          amount: string;
-        }[];
+    | {
+      denom: string;
+      amount: string;
+    }
+    | {
+      denom: string;
+      amount: string;
+    }[];
     sender: string;
     contractAddress: string;
     msg: Object;

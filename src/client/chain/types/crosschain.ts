@@ -1,6 +1,6 @@
-import { CrosschainRequest, CrosschainRequestClaimHash } from "@routerprotocol/chain-api/routerchain/crosschain/crosschain_request_pb";
-import { CrosschainAckRequest, CrosschainAckRequestClaimHash } from "@routerprotocol/chain-api/routerchain/crosschain/crosschain_ack_request_pb";
-import { CrosschainAckReceipt, CrosschainAckReceiptClaimHash } from "@routerprotocol/chain-api/routerchain/crosschain/crosschain_ack_receipt_pb";
+import { CrosschainRequest, CrosschainRequestClaimHash } from "@routerprotocol/chain-api/routerprotocol/routerchain/crosschain/crosschain_request_pb";
+import { CrosschainAckRequest, CrosschainAckRequestClaimHash } from "@routerprotocol/chain-api/routerprotocol/routerchain/crosschain/crosschain_ack_request_pb";
+import { CrosschainAckReceipt, CrosschainAckReceiptClaimHash } from "@routerprotocol/chain-api/routerprotocol/routerchain/crosschain/crosschain_ack_receipt_pb";
 import { getClaimHash } from "./util";
 
 
@@ -9,7 +9,7 @@ import { getClaimHash } from "./util";
  * @param crosschainRequest 
  * @returns 
  */
-export function getCrosschainClaimHash(crosschainRequest: CrosschainRequest.AsObject) : Uint8Array {
+export function getCrosschainClaimHash(crosschainRequest: CrosschainRequest.AsObject): Uint8Array {
     const claimHash = new CrosschainRequestClaimHash()
 
     claimHash.setSrcChainId(crosschainRequest.srcChainId)
@@ -36,7 +36,7 @@ export function getCrosschainClaimHash(crosschainRequest: CrosschainRequest.AsOb
  * @param crosschainAckRequest 
  * @returns 
  */
-export function getCrosschainAckClaimHash(crosschainAckRequest: CrosschainAckRequest.AsObject) : Uint8Array {
+export function getCrosschainAckClaimHash(crosschainAckRequest: CrosschainAckRequest.AsObject): Uint8Array {
     const claimHash = new CrosschainAckRequestClaimHash()
 
     claimHash.setAckSrcChainId(crosschainAckRequest.ackSrcChainId)
@@ -57,7 +57,7 @@ export function getCrosschainAckClaimHash(crosschainAckRequest: CrosschainAckReq
     return getClaimHash(claimHash.serializeBinary())
 }
 
-export function getCrosschainAckReceiptClaimHash(crosschainAckReceipt: CrosschainAckReceipt.AsObject) : Uint8Array {
+export function getCrosschainAckReceiptClaimHash(crosschainAckReceipt: CrosschainAckReceipt.AsObject): Uint8Array {
     const claimHash = new CrosschainAckReceiptClaimHash()
 
     claimHash.setAckreceiptsrcchainid(crosschainAckReceipt.acksrcchainid)

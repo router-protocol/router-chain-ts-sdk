@@ -1,4 +1,4 @@
-import { Query as MultiChainQuery } from '@routerprotocol/chain-api/routerchain/multichain/query_pb_service';
+import { Query as MultiChainQuery } from '@routerprotocol/chain-api/routerprotocol/routerchain/multichain/query_pb_service';
 import {
   QueryAllChainConfigRequest,
   QueryAllChainConfigResponse,
@@ -8,7 +8,7 @@ import {
   QueryAllContractConfigResponse,
   QueryAllContractConfigByChainIdRequest,
   QueryAllContractConfigByChainIdResponse,
-} from '@routerprotocol/chain-api/routerchain/multichain/query_pb';
+} from '@routerprotocol/chain-api/routerprotocol/routerchain/multichain/query_pb';
 import BaseConsumer from '../../BaseGrpcConsumer';
 
 /**
@@ -81,8 +81,8 @@ export class ChainGrpcMultiChainApi extends BaseConsumer {
 
     try {
       const response = await this.request<
-      QueryAllContractConfigByChainIdRequest,
-      QueryAllContractConfigByChainIdResponse,
+        QueryAllContractConfigByChainIdRequest,
+        QueryAllContractConfigByChainIdResponse,
         typeof MultiChainQuery.ContractConfigByChainId
       >(request, MultiChainQuery.ContractConfigByChainId);
 
@@ -102,8 +102,8 @@ export class ChainGrpcMultiChainApi extends BaseConsumer {
 
     try {
       const response = await this.request<
-      QueryAllContractConfigRequest,
-      QueryAllContractConfigResponse,
+        QueryAllContractConfigRequest,
+        QueryAllContractConfigResponse,
         typeof MultiChainQuery.ContractConfigAll
       >(request, MultiChainQuery.ContractConfigAll);
 

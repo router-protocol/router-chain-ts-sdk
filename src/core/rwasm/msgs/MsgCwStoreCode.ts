@@ -1,4 +1,4 @@
-import { MsgCwStoreCode as BaseMsgCwStoreCode } from '@routerprotocol/chain-api/routerchain/rwasm/tx_pb';
+import { MsgCwStoreCode as BaseMsgCwStoreCode } from '@routerprotocol/chain-api/routerprotocol/routerchain/rwasm/tx_pb';
 import { MsgBase } from '../../MsgBase';
 import snakeCaseKeys from 'snakecase-keys';
 //import { fromUtf8 } from '../../../utils';

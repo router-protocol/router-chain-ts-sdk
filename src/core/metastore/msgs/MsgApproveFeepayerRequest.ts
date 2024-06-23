@@ -1,4 +1,4 @@
-import { MsgApproveFeepayerRequest as BaseMsgApproveFeepayerRequest } from '@routerprotocol/chain-api/routerchain/metastore/tx_pb';
+import { MsgApproveFeepayerRequest as BaseMsgApproveFeepayerRequest } from '@routerprotocol/chain-api/routerprotocol/routerchain/metastore/tx_pb';
 import snakeCaseKeys from 'snakecase-keys';
 import { MsgBase } from '../../MsgBase';
 
