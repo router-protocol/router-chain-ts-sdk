@@ -6,7 +6,7 @@ export enum EthereumChainId {
   Kovan = 42,
   Ganache = 1337,
   HardHat = 31337,
-  AlphaDevnetEvm = 9625,
+  AlphaDevnetEvm = 9605,
   DevnetEvm = 9603,
   TestnetEvm = 9607,
   MainnetEvm = 9600,

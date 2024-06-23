@@ -99,11 +99,11 @@ export const getEthereumChainIdForNetwork = (
 ): EthereumChainId => ETH_CHAINID[network];
 
 export const getNetworkInfo = (
-         network: Network
-       ): ChainInfo & NetworkEndpoints => ({
-         ...CHAIN_INFO[network],
-         ...NETWORK_ENDPOINT[network],
-       });
+  network: Network
+): ChainInfo & NetworkEndpoints => ({
+  ...CHAIN_INFO[network],
+  ...NETWORK_ENDPOINT[network],
+});
 
 export const getEndpointsFromChainId = (
   chainId: TestnetCosmosChainId | CosmosChainId | ChainId | DevnetCosmosChainId
