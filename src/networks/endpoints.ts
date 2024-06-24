@@ -9,8 +9,8 @@ export const urlEndpointsMainnet: NetworkEndpoints = {
        };
 
 export const urlEndpointsTestnet: NetworkEndpoints = {
-         explorerGql: 'https://explorer-api.testnet.routerchain.dev/gql/query',
-         explorerGqlWs: 'wss://explorer-api.testnet.routerchain.dev/gql/query',
+         explorerGql: 'https://explorer-api.routerchain.dev/gql/query',
+         explorerGqlWs: 'wss://explorer-api.routerchain.dev/gql/query',
          lcdEndpoint: 'https://lcd.sentry.routerchain.dev',
          grpcEndpoint: 'https://grpcweb.sentry.routerchain.dev',
          tmEndpoint: 'https://tmrpc.sentry.routerchain.dev',

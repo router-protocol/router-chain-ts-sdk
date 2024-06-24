@@ -1,5 +1,5 @@
-import { ValsetUpdatedClaimHash } from '@routerprotocol/chain-api/routerchain/attestation/valset_updated_claim_pb';
-import { BridgeValidator } from '@routerprotocol/chain-api/routerchain/attestation/bridge_validator_pb';
+import { ValsetUpdatedClaimHash } from '@routerprotocol/chain-api/routerprotocol/routerchain/attestation/valset_updated_claim_pb';
+import { BridgeValidator } from '@routerprotocol/chain-api/routerprotocol/routerchain/attestation/bridge_validator_pb';
 import { getClaimHash } from './util';
 
 export function getValsetUpdatedClaimHash(

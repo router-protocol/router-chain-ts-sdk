@@ -1,5 +1,5 @@
 export enum CosmosChainId {
-  Router = 'router-1',
+  Router = 'router_9600-1',
   Cosmoshub = 'cosmoshub-4',
   Juno = 'juno-1',
   Osmosis = 'osmosis-1',
@@ -13,14 +13,14 @@ export enum CosmosChainId {
 }
 
 export enum TestnetCosmosChainId {
-  Router = 'router-1',
+  Router = 'router_9607-1',
   Cosmoshub = 'cosmoshub',
 }
 
 export enum DevnetCosmosChainId {
-  Router = 'router-1',
+  Router = 'router_9603-1',
 }
 
 export enum AlphaDevnetCosmosChainId {
-  Router = 'router_9000-1',
+  Router = 'router_9625-1',
 }

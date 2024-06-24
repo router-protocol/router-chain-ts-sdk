@@ -2378,13 +2378,13 @@
     estree-walker "^1.0.1"
     picomatch "^2.2.2"
 
-"@routerprotocol/chain-api@^1.1.71":
-  version "1.1.71"
-  resolved "https://registry.yarnpkg.com/@routerprotocol/chain-api/-/chain-api-1.1.71.tgz#510b14fa878e8417cc999c77bd3efbbedefb0bde"
-  integrity sha512-7lI9C99RccBLGSiwkga6L68qM7dLNiloC8hgAN2SJOfeY3bz7mfXZtKKdWURnkymUhBO9tICrdYiVs8YVTm8Zw==
+"@routerprotocol/chain-api@^1.2.2":
+  version "1.2.2"
+  resolved "https://registry.yarnpkg.com/@routerprotocol/chain-api/-/chain-api-1.2.2.tgz#57e1321e469f647a20d5c5eaaa24c3a8dec2ed42"
+  integrity sha512-HK7mRJjMF8GSIBDTvk8nEY0xRaw4KvdJ0KdXUoAOZ+n4eGLuFEeNIGJnCNs/jy5zXUOyXNVJhIVe2i47BwEPDw==
   dependencies:
     "@improbable-eng/grpc-web" "^0.13.0"
-    google-protobuf "^3.13.0"
+    google-protobuf "^3.15.12"
 
 "@sindresorhus/is@^4.0.0", "@sindresorhus/is@^4.6.0":
   version "4.6.0"
@@ -6097,7 +6097,7 @@ globrex@^0.1.2:
   resolved "https://registry.yarnpkg.com/globrex/-/globrex-0.1.2.tgz#dd5d9ec826232730cd6793a5e33a9302985e6098"
   integrity sha512-uHJgbwAMwNFf5mLst7IWLNg14x1CkeqglJb/K3doi4dw6q2IvAAmM/Y81kevy83wP+Sst+nutFTYOGg3d1lsxg==
 
-google-protobuf@^3.13.0, google-protobuf@^3.20.1:
+google-protobuf@^3.15.12, google-protobuf@^3.20.1:
   version "3.21.2"
   resolved "https://registry.yarnpkg.com/google-protobuf/-/google-protobuf-3.21.2.tgz#4580a2bea8bbb291ee579d1fefb14d6fa3070ea4"
   integrity sha512-3MSOYFO5U9mPGikIYCzK0SaThypfGgS6bHqrUGXG3DPHCrb+txNqeEcns1W0lkGfk0rCyNXm7xB9rMxnCiZOoA==
