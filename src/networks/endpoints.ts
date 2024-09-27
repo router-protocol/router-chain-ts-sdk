@@ -38,22 +38,22 @@ export const urlEndpointsTestnetEu: NetworkEndpoints = {
        };
 
 export const urlEndpointsInternalDevnet: NetworkEndpoints = {
-         explorerGql: 'https://alpha-explorer-api.routerprotocol.com/gql/query',
-         explorerGqlWs: 'wss://alpha-explorer-api.routerprotocol.com/gql/query',
-         lcdEndpoint: 'https://devnet-internal.lcd.routerprotocol.com',
-         grpcEndpoint: 'https://devnet-internal.grpcweb.routerprotocol.com',
-         tmEndpoint: 'https://devnet-internal.tm.routerprotocol.com',
-         rpcEndpoint: 'https://devnet-internal.evm.rpc.routerprotocol.com',
-       };
+  explorerGql: 'https://alpha-explorer-api.routerchain.dev/gql/query',
+  explorerGqlWs: 'wss://alpha-explorer-api.routerchain.dev/gql/query',
+  lcdEndpoint: 'https://devnet-internal.lcd.routerprotocol.com',
+  grpcEndpoint: 'https://devnet-internal.grpcweb.routerprotocol.com',
+  tmEndpoint: 'https://devnet-internal.tm.routerprotocol.com',
+  rpcEndpoint: 'https://devnet-internal.evm.rpc.routerprotocol.com',
+};
 
 export const urlEndpointsAlphaDevnet: NetworkEndpoints = {
-         explorerGql: 'https://alpha-explorer-api.routerprotocol.com/gql/query',
-         explorerGqlWs: 'wss://alpha-explorer-api.routerprotocol.com/gql/query',
-         lcdEndpoint: 'https://devnet-alpha.lcd.routerprotocol.com',
-         grpcEndpoint: 'https://devnet-alpha.grpcweb.routerprotocol.com',
-         tmEndpoint: 'https://devnet-alpha.tm.routerprotocol.com',
-         rpcEndpoint: 'https://devnet-alpha.evm.rpc.routerprotocol.com',
-       };
+  explorerGql: 'https://alpha-explorer-api.routerchain.dev/gql/query',
+  explorerGqlWs: 'wss://alpha-explorer-api.routerchain.dev/gql/query',
+  lcdEndpoint: 'https://devnet-alpha.lcd.routerprotocol.com',
+  grpcEndpoint: 'https://devnet-alpha.grpcweb.routerprotocol.com',
+  tmEndpoint: 'https://devnet-alpha.tm.routerprotocol.com',
+  rpcEndpoint: 'https://devnet-alpha.evm.rpc.routerprotocol.com',
+};
 
 export const urlEndpointsDevnet: NetworkEndpoints = {
          explorerGql:

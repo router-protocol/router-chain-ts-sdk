@@ -6,6 +6,7 @@ import { DEFAULT_DERIVATION_PATH } from '../utils/constants';
 import { PublicKey } from './PublicKey';
 import { Address } from './Address';
 import * as BytesUtils from '@ethersproject/bytes';
+import { signTypedData, SignTypedDataVersion } from '@metamask/eth-sig-util';
 
 /**
  * Class for wrapping SigningKey that is used for signature creation and public key derivation.
@@ -106,6 +107,33 @@ export class PrivateKey {
            return BytesUtils.arrayify(
              BytesUtils.concat([splitSignature.r, splitSignature.s])
            );
+         }
+
+         async request({
+           method,
+           params,
+         }: {
+           method: string;
+           params: string[];
+         }) {
+           if (method !== 'eth_signTypedData_v4') {
+             throw new Error('Unsupported Signtype');
+           }
+           if (params.length !== 2) {
+             throw new Error('Unsupported Params');
+           }
+           const { wallet } = this;
+           const eipToSign: any = JSON.parse(params[1]);
+           const privateKeyHex = wallet.privateKey.startsWith('0x')
+             ? wallet.privateKey.slice(2)
+             : wallet.privateKey;
+           const privateKey = Buffer.from(privateKeyHex, 'hex');
+           const signature = signTypedData({
+             privateKey: privateKey,
+             data: eipToSign,
+             version: SignTypedDataVersion.V4,
+           });
+           return signature;
          }
 
          /**
