@@ -21,7 +21,7 @@ export const experimentalChainsConfig = {
            rest: getEndpointsForNetwork(getNetworkType('mainnet')).lcdEndpoint,
            rpcConfig: undefined,
            restConfig: undefined,
-           chainId: getChainInfoForNetwork(Network.Mainnet),
+           chainId: getChainInfoForNetwork(Network.Mainnet).chainId,
            chainName: 'Router',
            evm: {
              chainId: 9600,
@@ -82,7 +82,7 @@ export const experimentalChainsConfig = {
            rest: getEndpointsForNetwork(getNetworkType('testnet')).lcdEndpoint,
            rpcConfig: undefined,
            restConfig: undefined,
-           chainId: getChainInfoForNetwork(Network.Testnet),
+           chainId: getChainInfoForNetwork(Network.Testnet).chainId,
            chainName: 'Router Testnet',
            stakeCurrency: {
              coinDenom: ROUTER_DENOM.toUpperCase(),
@@ -130,7 +130,7 @@ export const experimentalChainsConfig = {
            rest: getEndpointsForNetwork(getNetworkType('devnet')).lcdEndpoint,
            rpcConfig: undefined,
            restConfig: undefined,
-           chainId: getChainInfoForNetwork(Network.Devnet),
+           chainId: getChainInfoForNetwork(Network.Devnet).chainId,
            chainName: 'Router-Devnet',
            stakeCurrency: {
              coinDenom: ROUTER_DENOM.toUpperCase(),
