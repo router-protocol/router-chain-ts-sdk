@@ -1238,6 +1238,14 @@ export const specificFundPaidQuery = `
         signature
         ethSigner
       }
+      eventConfirmSignatures{
+       chainType
+        chainId
+        eventNonce
+        voter
+        blockHeight
+        timestamp
+      }
       status
       createdAt
       updatedAt
@@ -1282,10 +1290,20 @@ export const searchSpecificFundPaidQuery = `
         signature
         ethSigner
       }
+      eventConfirmSignatures{
+        chainType
+        chainId
+        eventNonce
+        voter
+        blockHeight
+        timestamp
+      }
       status
       createdAt
       updatedAt
     }
+  }
+}
 `;
 
 export const searchSpecificFundPaidSrcChainIdQuery = `
@@ -1325,6 +1343,14 @@ export const searchSpecificFundPaidSrcChainIdQuery = `
         blockHeight
         signature
         ethSigner
+      }
+      eventConfirmSignatures{
+        chainType
+        chainId
+        eventNonce
+        voter
+        blockHeight
+        timestamp
       }
       status
       createdAt
@@ -1375,6 +1401,14 @@ export const latestFundDepositQuery = `
         signature
         ethSigner
       }
+      eventConfirmSignatures{
+        chainType
+        chainId
+        eventNonce
+        voter
+        blockHeight
+        timestamp
+      }
       status
       createdAt
       updatedAt
@@ -1422,6 +1456,14 @@ export const specificFundDepositQuery = `
         signature
         ethSigner
       }
+      eventConfirmSignatures{
+        chainType
+        chainId
+        eventNonce
+        voter
+        blockHeight
+        timestamp
+      }
       status
       createdAt
       updatedAt
@@ -1468,6 +1510,14 @@ export const searchSpecificFundDepositQuery = `
         blockHeight
         signature
         ethSigner
+      }
+      eventConfirmSignatures{
+        chainType
+        chainId
+        eventNonce
+        voter
+        blockHeight
+        timestamp
       }
       status
       createdAt
@@ -1518,6 +1568,14 @@ export const searchSpecificFundDepositSrcChainIdQuery = `
         signature
         ethSigner
       }
+      eventConfirmSignatures{
+        chainType
+        chainId
+        eventNonce
+        voter
+        blockHeight
+        timestamp
+      }
       status
       createdAt
       updatedAt
@@ -1567,6 +1625,14 @@ export const searchSpecificFundDepositDestChainIdQuery = `
         signature
         ethSigner
       }
+      eventConfirmSignatures{
+        chainType
+        chainId
+        eventNonce
+        voter
+        blockHeight
+        timestamp
+      }
       status
       createdAt
       updatedAt
@@ -1615,6 +1681,14 @@ export const searchSpecificFundDepositChainIdQuery = `
         blockHeight
         signature
         ethSigner
+      }
+      eventConfirmSignatures{
+        chainType
+        chainId
+        eventNonce
+        voter
+        blockHeight
+        timestamp
       }
       status
       createdAt

@@ -87,14 +87,14 @@ export interface EventHistory {
   txnHash: string;
 }
 
-interface HistoryStatusType {
+export interface HistoryStatusType {
   status: string;
   txnHash: string;
   timestamp: number;
   blockHeight: number;
 }
 
-interface VoteAttestationType {
+export interface VoteAttestationType {
   chainType: string;
   chainId: string;
   eventNonce: number;
@@ -271,6 +271,7 @@ export interface FundPaidType {
   eventHistory: EventHistory[];
   historyStatus: HistoryStatusType[];
   eventSignatures: EventSignatureType[];
+  eventConfirmSignatures: VoteAttestationType[];
   status: string;
   createdAt: number;
   updatedAt: number;
@@ -301,6 +302,7 @@ export interface FundDepositType {
   eventHistory: EventHistory[];
   historyStatus: HistoryStatusType[];
   eventSignatures: EventSignatureType[];
+  eventConfirmSignatures: VoteAttestationType[];
   status: string;
   createdAt: number;
   updatedAt: number;

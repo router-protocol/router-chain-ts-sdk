@@ -8,7 +8,7 @@ export enum EthereumChainId {
   HardHat = 31337,
   AlphaDevnetEvm = 9605,
   DevnetEvm = 9603,
-  TestnetEvm = 9601,
+  TestnetEvm = 9607,
   MainnetEvm = 9600,
   InternalDevnet = 9000,
   LocalEvm = 9604,

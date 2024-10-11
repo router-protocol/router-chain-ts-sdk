@@ -8,15 +8,15 @@ export const mainnetChainInfo: ChainInfo = {
 
 export const testnetChainInfo: ChainInfo = {
   feeDenom: 'route',
-  chainId: 'router_9601-1',
+  chainId: 'router_9607-1',
   env: 'testnet',
 };
 
 export const loadTestChainInfo: ChainInfo = {
-         feeDenom: 'route',
-         chainId: 'router_9604-1',
-         env: 'load-test',
-       };
+  feeDenom: 'route',
+  chainId: 'router_9604-1',
+  env: 'load-test',
+};
 
 export const devnetChainInfo: ChainInfo = {
   feeDenom: 'route',
@@ -31,22 +31,22 @@ export const localChainInfo: ChainInfo = {
 };
 
 export const dockerChainInfo: ChainInfo = {
-         feeDenom: 'route',
-         chainId: 'router-1',
-         env: 'docker',
-       };
+  feeDenom: 'route',
+  chainId: 'router-1',
+  env: 'docker',
+};
 
 export const internalDevnetChainInfo: ChainInfo = {
-         feeDenom: 'route',
-         chainId: 'router_9000-1',
-         env: 'internal-devnet',
-       };
+  feeDenom: 'route',
+  chainId: 'router_9000-1',
+  env: 'internal-devnet',
+};
 
 export const alphaDevnetChainInfo: ChainInfo = {
-         feeDenom: 'route',
-         chainId: 'router_9605-1',
-         env: 'alpha-devnet',
-       };
+  feeDenom: 'route',
+  chainId: 'router_9605-1',
+  env: 'alpha-devnet',
+};
 
 export enum ChainType {
   EVM = 'CHAIN_TYPE_EVM',
@@ -55,44 +55,38 @@ export enum ChainType {
 export const ChainTypes = [ChainType.EVM];
 
 export const ChainIdByChainType: {
-         [key: string]: ChainConfigurationtype[];
-       } = {
-         [ChainType.EVM]: [
-           {
-             chainId: '3',
-             name: 'Ropsten',
-             logoURI:
-               'https://cryptologos.cc/logos/ethereum-eth-logo.png?v=023',
-           },
-           {
-             chainId: '4',
-             name: 'Rinkeby',
-             logoURI:
-               'https://cryptologos.cc/logos/ethereum-eth-logo.png?v=023',
-           },
-           {
-             chainId: '5',
-             name: 'Georli',
-             logoURI:
-               'https://cryptologos.cc/logos/ethereum-eth-logo.png?v=023',
-           },
-           {
-             chainId: '42',
-             name: 'Kovan',
-             logoURI:
-               'https://cryptologos.cc/logos/ethereum-eth-logo.png?v=023',
-           },
-           {
-             chainId: '1',
-             name: 'Georli',
-             logoURI:
-               'https://cryptologos.cc/logos/ethereum-eth-logo.png?v=023',
-           },
-           {
-             chainId: '80001',
-             name: 'Matic Testnet',
-             logoURI:
-               'https://cryptologos.cc/logos/polygon-matic-logo.png?v=023',
-           },
-         ],
-       };
+  [key: string]: ChainConfigurationtype[];
+} = {
+  [ChainType.EVM]: [
+    {
+      chainId: '3',
+      name: 'Ropsten',
+      logoURI: 'https://cryptologos.cc/logos/ethereum-eth-logo.png?v=023',
+    },
+    {
+      chainId: '4',
+      name: 'Rinkeby',
+      logoURI: 'https://cryptologos.cc/logos/ethereum-eth-logo.png?v=023',
+    },
+    {
+      chainId: '5',
+      name: 'Georli',
+      logoURI: 'https://cryptologos.cc/logos/ethereum-eth-logo.png?v=023',
+    },
+    {
+      chainId: '42',
+      name: 'Kovan',
+      logoURI: 'https://cryptologos.cc/logos/ethereum-eth-logo.png?v=023',
+    },
+    {
+      chainId: '1',
+      name: 'Georli',
+      logoURI: 'https://cryptologos.cc/logos/ethereum-eth-logo.png?v=023',
+    },
+    {
+      chainId: '80001',
+      name: 'Matic Testnet',
+      logoURI: 'https://cryptologos.cc/logos/polygon-matic-logo.png?v=023',
+    },
+  ],
+};

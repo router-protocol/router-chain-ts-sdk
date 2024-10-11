@@ -1,4 +1,4 @@
-import { MsgInstantiateCwContract as BaseMsgInstantiateCwContract } from '@routerprotocol/chain-api/routerchain/rwasm/tx_pb';
+import { MsgInstantiateCwContract as BaseMsgInstantiateCwContract } from '@routerprotocol/chain-api/routerprotocol/routerchain/rwasm/tx_pb';
 import { MsgBase } from '../../MsgBase';
 import snakeCaseKeys from 'snakecase-keys';
 
@@ -10,14 +10,14 @@ export declare namespace MsgInstantiateCwContract {
     label: string;
     msg: Object;
     amount?:
-      | {
-          denom: string;
-          amount: string;
-        }
-      | {
-          denom: string;
-          amount: string;
-        }[];
+    | {
+      denom: string;
+      amount: string;
+    }
+    | {
+      denom: string;
+      amount: string;
+    }[];
   }
 
   export interface DirectSign {

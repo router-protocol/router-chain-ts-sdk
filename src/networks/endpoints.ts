@@ -1,20 +1,20 @@
 import { NetworkEndpoints } from './types';
 export const urlEndpointsMainnet: NetworkEndpoints = {
-         explorerGql: 'https://alpha-explorer-api.routerprotocol.com/gql/query',
-         explorerGqlWs: 'wss://alpha-explorer-api.routerprotocol.com/gql/query',
-         lcdEndpoint: 'https://devnet-alpha.lcd.routerprotocol.com',
-         grpcEndpoint: 'https://devnet-alpha.grpcweb.routerprotocol.com',
-         tmEndpoint: 'https://devnet-alpha.tm.routerprotocol.com',
-         rpcEndpoint: 'https://devnet.evm.rpc.routerprotocol.com',
+         explorerGql: 'https://api.explorer.routerscan.io/gql/query',
+         explorerGqlWs: 'wss://api.explorer.routerscan.io/gql/query',
+         lcdEndpoint: 'https://sentry.lcd.routerprotocol.com',
+         grpcEndpoint: 'https://sentry.grpcweb.routerprotocol.com',
+         tmEndpoint: 'https://sentry.tm.rpc.routerprotocol.com',
+         rpcEndpoint: 'https://sentry.evm.rpc.routerprotocol.com',
        };
 
 export const urlEndpointsTestnet: NetworkEndpoints = {
-         explorerGql: 'https://explorer-api.testnet.routerchain.dev/gql/query',
-         explorerGqlWs: 'wss://explorer-api.testnet.routerchain.dev/gql/query',
-         lcdEndpoint: 'https://lcd.testnet.routerchain.dev',
-         grpcEndpoint: 'https://grpcweb.testnet.routerchain.dev',
-         tmEndpoint: 'https://tm.rpc.testnet.routerchain.dev',
-         rpcEndpoint: 'https://evm.rpc.testnet.routerchain.dev',
+         explorerGql: 'https://explorer-api.routerchain.dev/gql/query',
+         explorerGqlWs: 'wss://explorer-api.routerchain.dev/gql/query',
+         lcdEndpoint: 'https://lcd.sentry.routerchain.dev',
+         grpcEndpoint: 'https://grpcweb.sentry.routerchain.dev',
+         tmEndpoint: 'https://tmrpc.sentry.routerchain.dev',
+         rpcEndpoint: 'https://evmrpc.sentry.routerchain.dev',
        };
 
 export const urlEndpointsLoadtest: NetworkEndpoints = {
@@ -31,29 +31,29 @@ export const urlEndpointsLoadtest: NetworkEndpoints = {
 export const urlEndpointsTestnetEu: NetworkEndpoints = {
          explorerGql: 'https://explorer-api.testnet.routerchain.dev/gql/query',
          explorerGqlWs: 'wss://explorer-api.testnet.routerchain.dev/gql/query',
-         lcdEndpoint: 'https://lcd.testnet-eu.routerchain.dev',
-         grpcEndpoint: 'https://grpcweb.testnet-eu.routerchain.dev',
-         tmEndpoint: 'https://tm.rpc.testnet-eu.routerchain.dev',
-         rpcEndpoint: 'https://evm.rpc.testnet-eu.routerchain.dev',
+         lcdEndpoint: 'https://lcd.sentry.routerchain.dev',
+         grpcEndpoint: 'https://grpcweb.sentry.routerchain.dev',
+         tmEndpoint: 'https://tmrpc.sentry.routerchain.dev',
+         rpcEndpoint: 'https://evmrpc.sentry.routerchain.dev',
        };
 
 export const urlEndpointsInternalDevnet: NetworkEndpoints = {
-         explorerGql: 'https://alpha-explorer-api.routerprotocol.com/gql/query',
-         explorerGqlWs: 'wss://alpha-explorer-api.routerprotocol.com/gql/query',
-         lcdEndpoint: 'https://devnet-internal.lcd.routerprotocol.com',
-         grpcEndpoint: 'https://devnet-internal.grpcweb.routerprotocol.com',
-         tmEndpoint: 'https://devnet-internal.tm.routerprotocol.com',
-         rpcEndpoint: 'https://devnet-internal.evm.rpc.routerprotocol.com',
-       };
+  explorerGql: 'https://alpha-explorer-api.routerchain.dev/gql/query',
+  explorerGqlWs: 'wss://alpha-explorer-api.routerchain.dev/gql/query',
+  lcdEndpoint: 'https://devnet-internal.lcd.routerprotocol.com',
+  grpcEndpoint: 'https://devnet-internal.grpcweb.routerprotocol.com',
+  tmEndpoint: 'https://devnet-internal.tm.routerprotocol.com',
+  rpcEndpoint: 'https://devnet-internal.evm.rpc.routerprotocol.com',
+};
 
 export const urlEndpointsAlphaDevnet: NetworkEndpoints = {
-         explorerGql: 'https://alpha-explorer-api.routerprotocol.com/gql/query',
-         explorerGqlWs: 'wss://alpha-explorer-api.routerprotocol.com/gql/query',
-         lcdEndpoint: 'https://devnet-alpha.lcd.routerprotocol.com',
-         grpcEndpoint: 'https://devnet-alpha.grpcweb.routerprotocol.com',
-         tmEndpoint: 'https://devnet-alpha.tm.routerprotocol.com',
-         rpcEndpoint: 'https://devnet-alpha.evm.rpc.routerprotocol.com',
-       };
+  explorerGql: 'https://alpha-explorer-api.routerchain.dev/gql/query',
+  explorerGqlWs: 'wss://alpha-explorer-api.routerchain.dev/gql/query',
+  lcdEndpoint: 'https://devnet-alpha.lcd.routerprotocol.com',
+  grpcEndpoint: 'https://devnet-alpha.grpcweb.routerprotocol.com',
+  tmEndpoint: 'https://devnet-alpha.tm.routerprotocol.com',
+  rpcEndpoint: 'https://devnet-alpha.evm.rpc.routerprotocol.com',
+};
 
 export const urlEndpointsDevnet: NetworkEndpoints = {
          explorerGql:
