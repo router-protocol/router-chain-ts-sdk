@@ -36,7 +36,7 @@ import {
   Network,
 } from '@routerprotocol/router-chain-sdk-ts';
 
-const endpoint = getEndpointsForNetwork(Network.Devnet);
+const endpoint = getEndpointsForNetwork(Network.Testnet);
 const bankClient = new ChainGrpcBankApi(endpoint.grpcEndpoint);
 
 // Fetch all balances of an account
@@ -110,6 +110,8 @@ const {
   privateKeyToPublicKeyBase64,
   isValidAddress,
   devnetChainInfo,
+  sendEthTxnToRouterChain,
+  getEthereumSignerAddress,
 } = require('@routerprotocol/router-chain-sdk-ts');
 
 const ROUTER_TO_SEND = '10';
@@ -119,7 +121,7 @@ const amount = {
   denom: 'route',
 };
 
-const endpoint = getEndpointsForNetwork(Network.Devnet);
+const endpoint = getEndpointsForNetwork(Network.Testnet);
 const privateKeyHash = FAUCET_ACCOUNT_KEY;
 
 /** Intializing Faucet wallet from the private key */
@@ -144,26 +146,13 @@ const aliceAccount = await new ChainRestAuthApi(
 ).fetchAccount(alice);
 
 /** Create Raw Transaction */
-const { signBytes, txRaw } = createTransaction({
-  message: message.toDirectSign(),
-  memo: '',
-  fee: DEFAULT_STD_FEE,
-  pubKey: publicKey,
-  sequence: parseInt(aliceAccount.account.base_account.sequence, 10),
-  accountNumber: parseInt(aliceAccount.account.base_account.account_number, 10),
-  chainId: devnetChainInfo.chainId,
-});
-
-/** Sign transaction */
-const signature = await privateKey.sign(signBytes);
-
-/** Append Signatures */
-txRaw.setSignaturesList([signature]);
-
-const txService = new TxRestClient(endpoint.lcdEndpoint);
-
-/** Broadcast transaction */
-const txResponse = await txService.broadcast(txRaw);
+const txResponse = await sendEthTxnToRouterChain({
+  networkEnv: Network.Testnet,
+  txMsg: message,
+  nodeUrl: endpoint.lcdEndpoint,
+  ethereumAddress: getEthereumSignerAddress(alice),
+  injectedSigner: privateKey
+})
 
 console.log(
   `Broadcasted transaction hash: ${JSON.stringify(txResponse.txhash)}`
@@ -203,7 +192,7 @@ const publicKey = privateKeyToPublicKeyBase64(
 	Buffer.from(privateKeyHash, "hex")
 );
 
-const endpoint =  getEndpointsForNetwork(Network.Devnet);
+const endpoint =  getEndpointsForNetwork(Network.Testnet);
 
 const restClient = new TxRestClient(endpoint.lcdEndpoint);
 
@@ -220,38 +209,14 @@ const restClient = new TxRestClient(endpoint.lcdEndpoint);
     wasm: wasmCode,
   });
 
-  const { signBytes, txRaw } = createTransaction({
-		message: storeCodeMsg.toDirectSign(),
-		memo: "",
-		fee: {
-			amount: [
-				{
-					amount: new BigNumberInBase(4000000000)
-						.times(500000000)
-						.toString(),
-					denom: "route",
-				},
-			],
-			gas: (500000000).toString(),
-		},
-		pubKey: publicKey,
-		sequence: parseInt(aliceAccount.account.base_account.sequence, 10),
-		accountNumber: parseInt(
-			aliceAccount.account.base_account.account_number,
-			10
-		),
-		chainId: "router-1",
-	});
-
-  /** Sign transaction */
-  const signature = await privateKey.sign(signBytes);
-
-  /** Append Signatures */
-  txRaw.setSignaturesList([signature]);
-
-  /** Broadcast transaction */
-  let txxResponse = await restClient.broadcast(txRaw);
-	let txResponse = await restClient. waitTxBroadcast(txxResponse.txhash);
+  /** Create Raw Transaction */
+  const txResponse = await sendEthTxnToRouterChain({
+    networkEnv: Network.Testnet,
+    txMsg: message,
+    nodeUrl: endpoint.lcdEndpoint,
+    ethereumAddress: getEthereumSignerAddress(alice),
+    injectedSigner: privateKey
+  })
 	console.log(`txResponse =>`, JSON.stringify(txResponse));
 
   const parsedLogs = logs.parseRawLog(txResponse.raw_log);
@@ -298,7 +263,7 @@ const publicKey = privateKeyToPublicKeyBase64(
   Buffer.from(privateKeyHash, 'hex')
 );
 
-const endpoint = getEndpointsForNetwork(Network.Devnet);
+const endpoint = getEndpointsForNetwork(Network.Testnet);
 
 const restClient = new TxRestClient(endpoint.lcdEndpoint);
 const aliceAccount = await new ChainRestAuthApi(
@@ -314,33 +279,14 @@ const intantiateContractMsg = MsgInstantiateContract.fromJSON({
   msg: {},
 });
 
-const instantiateTx = createTransaction({
-  message: intantiateContractMsg.toDirectSign(),
-  memo: '',
-  fee: {
-    amount: [
-      {
-        amount: new BigNumberInBase(4000000000).times(500000000).toString(),
-        denom: 'route',
-      },
-    ],
-    gas: (500000000).toString(),
-  },
-  pubKey: publicKey,
-  sequence: parseInt(aliceAccount.account.base_account.sequence, 10),
-  accountNumber: parseInt(aliceAccount.account.base_account.account_number, 10),
-  chainId: 'router-1',
-});
-
-/** Sign transaction */
-const signature = await privateKey.sign(instantiateTx.signBytes);
-
-/** Append Signatures */
-instantiateTx.txRaw.setSignaturesList([signature]);
-const txService = new TxGrpcClient(endpoint.grpcEndpoint);
-
-/** Broadcast transaction */
-const txResponse = await restClient.broadcast(instantiateTx.txRaw);
+/** Create Raw Transaction */
+const txResponse = await sendEthTxnToRouterChain({
+  networkEnv: Network.Testnet,
+  txMsg: intantiateContractMsg,
+  nodeUrl: endpoint.lcdEndpoint,
+  ethereumAddress: getEthereumSignerAddress(alice),
+  injectedSigner: privateKey
+})
 console.log(
   `Broadcasted Instantiate transaction hash: ${JSON.stringify(
     txResponse.txhash
@@ -371,7 +317,7 @@ import {
   ChainGrpcBankApi,
 } from '../../router-chain-ts-sdk/src';
 
-const endpoint = getEndpointsForNetwork(Network.Devnet);
+const endpoint = getEndpointsForNetwork(Network.Testnet);
 
 const wasmClient = new ChainGrpcWasmApi(endpoint.grpcEndpoint);
 const bankClient = new ChainGrpcBankApi(endpoint.grpcEndpoint);
@@ -499,33 +445,14 @@ const executeContractMsg = MsgExecuteContract.fromJSON({
   },
 });
 
-const { signBytes, txRaw } = createTransaction({
-  message: executeContractMsg.toDirectSign(),
-  memo: '',
-  fee: {
-    amount: [
-      {
-        amount: new BigNumberInBase(4000000000).times(500000000).toString(),
-        denom: 'route',
-      },
-    ],
-    gas: (500000000).toString(),
-  },
-  pubKey: publicKey,
-  sequence: parseInt(aliceAccount.account.base_account.sequence, 10),
-  accountNumber: parseInt(aliceAccount.account.base_account.account_number, 10),
-  chainId: 'router-1',
-});
-
-/** Sign transaction */
-const signature = await privateKey.sign(signBytes);
-
-/** Append Signatures */
-txRaw.setSignaturesList([signature]);
-
-/** Broadcast transaction */
-let txxResponse = await restClient.broadcast(txRaw);
-let txResponse = await restClient.waitTxBroadcast(txxResponse.txhash);
+/** Create Raw Transaction */
+const txResponse = await sendEthTxnToRouterChain({
+  networkEnv: Network.Testnet,
+  txMsg: executeContractMsg,
+  nodeUrl: endpoint.lcdEndpoint,
+  ethereumAddress: getEthereumSignerAddress(alice),
+  injectedSigner: privateKey
+})
 console.log(`txResponse =>`, txResponse);
 ```
 
@@ -585,116 +512,6 @@ const tx = await executeQueryInjected({
 const txHash = tx.tx_response.txhash;
 const txResponse = await restClient.waitTxBroadcast(txHash);
 ```
-
-</p>
-</details>
-
-<details><summary>Execute a query.</summary>
-<p>
-
-With `MsgExecuteContract` you can execute any query on Router Chain.
-
-```ts
-import {
-  getEndpointsForNetwork,
-  getNetworkType,
-  MsgStoreCode,
-  PrivateKey,
-  privateKeyToPublicKeyBase64,
-  ChainRestAuthApi,
-  createTransaction,
-  DEFAULT_STD_FEE,
-  BigNumberInBase,
-  TxGrpcClient,
-  TxRestClient,
-  MsgInstantiateContract,
-} from '../../router-chain-ts-sdk/src/';
-import { sha256 } from '@cosmjs/crypto';
-import { logs } from '@cosmjs/stargate';
-import pako from 'pako';
-import _m0 from 'protobufjs/minimal';
-import { MsgExecuteContract } from '@routerprotocol/router-chain-sdk-ts';
-
-const privateKey = PrivateKey.fromPrivateKey(privateKeyHash);
-
-const alice = privateKey.toBech32();
-const alice_pubkey = privateKey.toPublicKey();
-
-const publicKey = privateKeyToPublicKeyBase64(
-  Buffer.from(privateKeyHash, 'hex')
-);
-const restClient = new TxRestClient(endpoint.lcdEndpoint);
-
-/** Get Faucet Accounts details */
-const aliceAccount = await new ChainRestAuthApi(
-  endpoint.lcdEndpoint
-).fetchAccount(alice);
-
-const executeContractMsg = MsgExecuteContract.fromJSON({
-  sender: alice,
-  action: 'white_list_application_contract',
-  contractAddress:
-    'router1aaf9r6s7nxhysuegqrxv0wpm27ypyv4886medd3mrkrw6t4yfcns8a2l0y',
-  msg: {
-    chain_id: '80001',
-    chain_type: 0,
-    contract_address: [
-      171,
-      132,
-      131,
-      246,
-      77,
-      156,
-      109,
-      30,
-      207,
-      155,
-      132,
-      154,
-      230,
-      119,
-      221,
-      51,
-      21,
-      131,
-      92,
-      178,
-    ],
-  },
-});
-
-const { signBytes, txRaw } = createTransaction({
-  message: executeContractMsg.toDirectSign(),
-  memo: '',
-  fee: {
-    amount: [
-      {
-        amount: new BigNumberInBase(4000000000).times(500000000).toString(),
-        denom: 'route',
-      },
-    ],
-    gas: (500000000).toString(),
-  },
-  pubKey: publicKey,
-  sequence: parseInt(aliceAccount.account.base_account.sequence, 10),
-  accountNumber: parseInt(aliceAccount.account.base_account.account_number, 10),
-  chainId: 'router-1',
-});
-
-/** Sign transaction */
-const signature = await privateKey.sign(signBytes);
-
-/** Append Signatures */
-txRaw.setSignaturesList([signature]);
-
-/** Broadcast transaction */
-let txxResponse = await restClient.broadcast(txRaw);
-let txResponse = await restClient.waitTxBroadcast(txxResponse.txhash);
-console.log(`txResponse =>`, txResponse);
-```
-
-</p>
-</details>
 
 ## Common Errors
 
